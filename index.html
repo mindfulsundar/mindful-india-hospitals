@@ -1,0 +1,1347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>India Hospitals: What Must Be True | Mindful Finance</title>
+<meta name="description" content="Revised interactive initiating-coverage deck on ten listed Indian hospital platforms: valuation range, reverse valuation, SOTP, scenarios, Monte Carlo and a valuation lab. Mindful Finance.">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta property="og:title" content="India Hospitals: What Must Be True | Mindful Finance">
+<meta property="og:description" content="Revised interactive initiating-coverage deck on ten listed Indian hospital platforms.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#ffffff">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --red:#e60023;--red-press:#cc001f;
+  --canvas:#ffffff;--soft:#fbfbf9;--card:#f6f6f3;--sec:#e5e5e0;--sec-press:#c8c8c1;--hair:#dadad3;--hair-soft:#e5e5e0;
+  --ink:#000000;--body:#33332e;--mute:#62625b;--ash:#91918c;--stone:#c8c8c1;
+  --dark:#262622;--on-dark:#ffffff;
+  --err:#9e0a0a;--err-pale:#fbe3e3;--succ:#103c25;--succ-pale:#c7f0da;
+  --focus:#435ee5;--blue:#617bff;--purple:#7e238b;
+  --mf-navy:#12294d;--mf-gold:#e3a72f;
+  --r-md:16px;--r-lg:32px;--r-full:9999px;
+  --font-d:'Manrope','Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --font-b:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --canvas:#151513;--soft:#1a1a17;--card:#242420;--sec:#34342f;--sec-press:#4a4a43;--hair:#3b3b35;--hair-soft:#2c2c27;
+    --ink:#ffffff;--body:#dcdcd6;--mute:#a9a9a2;--ash:#7d7d77;--stone:#4a4a43;--dark:#0d0d0b;
+    --err:#ff9a9a;--err-pale:#3a1c1c;--succ:#8ee8b5;--succ-pale:#143826;--focus:#8ea0ff;
+  }
+}
+:root[data-theme="dark"]{
+  --canvas:#151513;--soft:#1a1a17;--card:#242420;--sec:#34342f;--sec-press:#4a4a43;--hair:#3b3b35;--hair-soft:#2c2c27;
+  --ink:#ffffff;--body:#dcdcd6;--mute:#a9a9a2;--ash:#7d7d77;--stone:#4a4a43;--dark:#0d0d0b;
+  --err:#ff9a9a;--err-pale:#3a1c1c;--succ:#8ee8b5;--succ-pale:#143826;--focus:#8ea0ff;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{height:100%;margin:0;background:var(--canvas);color:var(--body);font-family:var(--font-b);font-size:16px;line-height:1.4;display:flex;flex-direction:column;overflow:hidden;-webkit-text-size-adjust:100%}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none;padding:0}
+a{color:var(--ink);font-weight:600}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px;box-shadow:0 0 0 4px var(--canvas)}
+input[type=range]:focus-visible{outline-offset:6px}
+h1,h2,h3,h4,p{margin:0}
+.num{font-variant-numeric:tabular-nums}
+
+/* ---------- nav ---------- */
+.nav{flex:none;height:64px;background:var(--canvas);display:flex;align-items:center;gap:12px;padding:0 16px;border-bottom:1px solid var(--hair-soft);z-index:5}
+.brand{display:flex;align-items:center;gap:10px;min-width:0}
+.brand svg{flex:none}
+.brand b{font-family:var(--font-d);font-weight:800;font-size:17px;letter-spacing:-.4px;color:var(--ink);white-space:nowrap}
+.brand small{display:none;color:var(--mute);font-size:14px;padding-left:12px;border-left:1px solid var(--hair);white-space:nowrap}
+.nav-title{display:none;flex:1;min-width:0;text-align:center;font-weight:600;font-size:14px;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nav-spacer{flex:1}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:40px;padding:6px 16px;border-radius:var(--r-md);font-weight:700;font-size:14px;line-height:1;white-space:nowrap;min-width:44px}
+.btn-primary{background:var(--red);color:#fff}
+.btn-primary:active{background:var(--red-press)}
+.btn-secondary{background:var(--sec);color:var(--ink)}
+.btn-secondary:active{background:var(--sec-press)}
+.btn-ghost{color:var(--ink)}
+.btn[disabled]{background:var(--card);color:var(--ash);cursor:default}
+.btn-circ{width:44px;height:44px;border-radius:var(--r-full);background:var(--card);color:var(--ink);display:inline-flex;align-items:center;justify-content:center;flex:none}
+.btn-circ:active{background:var(--sec)}
+.btn-circ[disabled]{color:var(--stone)}
+.counter{height:40px;padding:0 14px;border-radius:var(--r-full);background:var(--card);font-weight:700;font-size:14px;color:var(--ink);white-space:nowrap}
+
+/* ---------- stage ---------- */
+.stage{flex:1;min-height:0;position:relative;overflow:hidden;background:var(--soft)}
+.track{display:flex;height:100%;transition:transform .45s cubic-bezier(.3,.7,.2,1);will-change:transform}
+.slide{flex:none;width:100%;height:100%;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+.wrap{max-width:1280px;margin:0 auto;padding:32px 16px 48px}
+.dock{flex:none;height:64px;background:var(--canvas);border-top:1px solid var(--hair-soft);display:flex;align-items:center;gap:12px;padding:0 16px}
+.dots{flex:1;display:flex;gap:6px;align-items:center;justify-content:center}
+.dot{flex:1;max-width:44px;height:44px;display:flex;align-items:center;justify-content:center}
+.dot i{display:block;width:100%;height:6px;border-radius:var(--r-full);background:var(--sec);transition:background .3s}
+.dot[aria-current="true"] i{background:var(--ink)}
+.dot.seen i{background:var(--stone)}
+.dot[aria-current="true"].seen i{background:var(--ink)}
+
+/* ---------- type ---------- */
+.d-xl{font-family:var(--font-d);font-weight:700;font-size:44px;line-height:1.05;letter-spacing:-1.2px;color:var(--ink)}
+.d-lg{font-family:var(--font-d);font-weight:700;font-size:34px;line-height:1.12;letter-spacing:-.8px;color:var(--ink)}
+.h-xl{font-family:var(--font-d);font-weight:700;font-size:28px;line-height:1.2;letter-spacing:-1.2px;color:var(--ink)}
+.h-lg{font-family:var(--font-d);font-weight:700;font-size:22px;line-height:1.25;color:var(--ink)}
+.h-md{font-weight:600;font-size:18px;line-height:1.3;color:var(--ink)}
+.lead{font-size:18px;line-height:1.45;color:var(--body);max-width:62ch}
+.p{font-size:16px;color:var(--body);max-width:68ch}
+.sm{font-size:14px;color:var(--mute)}
+.cap{font-size:12px;font-weight:500;color:var(--mute);line-height:1.5}
+.strong{font-weight:600;color:var(--ink)}
+.stack>*+*{margin-top:16px}
+.stack-lg>*+*{margin-top:32px}
+.head{display:flex;flex-direction:column;gap:12px;margin-bottom:32px}
+
+/* ---------- pieces ---------- */
+.card{background:var(--card);border-radius:var(--r-md);padding:16px}
+.card.white{background:var(--canvas)}
+.feature{background:var(--canvas);border-radius:var(--r-md);padding:20px}
+.feature.soft{background:var(--card)}
+.grid{display:grid;gap:8px}
+.g2{grid-template-columns:1fr}
+.g3{grid-template-columns:1fr}
+.g4{grid-template-columns:1fr 1fr}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.chip{height:44px;padding:0 16px;border-radius:var(--r-full);background:var(--card);color:var(--ink);font-weight:600;font-size:14px;display:inline-flex;align-items:center;white-space:nowrap}
+.chip:active{background:var(--sec)}
+.chip[aria-pressed="true"],.chip.on{background:var(--ink);color:var(--canvas)}
+.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;margin:0 -16px;padding-left:16px;padding-right:16px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chips.wrapit{flex-wrap:wrap;overflow:visible;margin:0;padding:0}
+.pill{display:inline-flex;align-items:center;height:28px;padding:0 12px;border-radius:var(--r-full);background:var(--canvas);color:var(--ink);font-size:12px;font-weight:700}
+.pill.pos{background:var(--succ-pale);color:var(--succ)}
+.pill.neg{background:var(--err-pale);color:var(--err)}
+.pill.dark{background:var(--ink);color:var(--canvas)}
+.stat{display:flex;flex-direction:column;gap:4px;background:var(--card);border-radius:var(--r-md);padding:16px}
+.stat .v{font-family:var(--font-d);font-weight:700;font-size:24px;letter-spacing:-1px;color:var(--ink);line-height:1.05}
+.stat .l{font-size:14px;color:var(--mute)}
+.note{background:var(--card);border-radius:var(--r-md);padding:16px;font-size:14px;color:var(--body)}
+.note b{color:var(--ink)}
+.rule{height:1px;background:var(--hair);border:0;margin:0}
+
+/* sliders */
+.ctl{display:flex;flex-direction:column;gap:6px;padding:4px 0}
+.ctl-h{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.ctl-h label{font-weight:600;font-size:14px;color:var(--ink)}
+.ctl-h label{flex:1}
+.ctl-h output{white-space:nowrap;flex:none;font-weight:700;font-size:14px;color:var(--ink);font-variant-numeric:tabular-nums}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:44px;background:transparent;margin:0;touch-action:pan-y}
+input[type=range]::-webkit-slider-runnable-track{height:6px;border-radius:9999px;background:var(--sec-press);background:linear-gradient(to right,var(--ink) var(--p,50%),var(--sec) var(--p,50%))}
+input[type=range]::-moz-range-track{height:6px;border-radius:9999px;background:var(--sec)}
+input[type=range]::-moz-range-progress{height:6px;border-radius:9999px;background:var(--ink)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;border-radius:50%;background:var(--canvas);border:3px solid var(--ink);margin-top:-10px}
+input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--canvas);border:3px solid var(--ink)}
+
+/* bars */
+.bars{display:flex;flex-direction:column;gap:6px}
+.bar-row{display:grid;grid-template-columns:104px 1fr 64px;align-items:center;gap:10px;min-height:36px;border-radius:var(--r-md);padding:0 8px;text-align:left;width:100%}
+.bar-row.sel{background:var(--card)}
+.bar-row .n{font-weight:600;font-size:14px;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar-row .v{font-weight:700;font-size:14px;text-align:right;color:var(--ink);font-variant-numeric:tabular-nums}
+.bar-track{height:20px;border-radius:var(--r-full);background:var(--card);position:relative;overflow:hidden}
+.bars.onsoft .bar-track{background:var(--canvas)}
+.bar-fill{position:absolute;left:0;top:0;bottom:0;border-radius:var(--r-full);background:var(--ink);width:0;transition:width .7s cubic-bezier(.3,.7,.2,1),background .3s}
+.bar-fill.lite{background:var(--stone)}
+.div-track{height:22px;position:relative;background:var(--card);border-radius:var(--r-full);overflow:hidden}
+.div-track::after{content:"";position:absolute;left:50%;top:0;bottom:0;width:2px;background:var(--ash)}
+.div-fill{position:absolute;top:3px;bottom:3px;width:0;transition:width .7s cubic-bezier(.3,.7,.2,1),left .7s cubic-bezier(.3,.7,.2,1)}
+.div-fill.neg{background:var(--err);border-radius:var(--r-full) 0 0 var(--r-full);right:50%}
+.div-fill.pos{background:var(--succ);border-radius:0 var(--r-full) var(--r-full) 0;left:50%}
+
+/* masonry of pins */
+.masonry{columns:2;column-gap:8px}
+.pin{break-inside:avoid;background:var(--card);border-radius:var(--r-md);margin-bottom:8px;padding:16px;display:flex;flex-direction:column;justify-content:space-between;text-align:left;width:100%;transition:opacity .35s,transform .35s,box-shadow .2s;box-shadow:inset 0 0 0 0 var(--ink)}
+.pin.on{box-shadow:inset 0 0 0 2px var(--ink);background:var(--canvas)}
+.pin.dim{opacity:.35}
+.pin .nm{font-weight:600;font-size:14px;color:var(--ink)}
+.pin .big{font-family:var(--font-d);font-weight:700;font-size:34px;letter-spacing:-1px;line-height:1;margin:14px 0 10px}
+.pin .big.neg{color:var(--err)}.pin .big.pos{color:var(--succ)}
+.pin .meta{font-size:12px;color:var(--mute);line-height:1.5}
+
+/* tables */
+.tablewrap{overflow-x:auto;border-radius:var(--r-md);background:var(--canvas);-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:720px}
+th{font-weight:700;color:var(--ink);text-align:right;padding:12px 12px;border-bottom:1px solid var(--hair);white-space:nowrap;background:var(--canvas)}
+td{padding:12px;text-align:right;border-bottom:1px solid var(--hair-soft);color:var(--body);font-variant-numeric:tabular-nums;white-space:nowrap}
+th:first-child,td:first-child{text-align:left;position:sticky;left:0;background:var(--canvas);color:var(--ink);font-weight:600}
+tr.sel td{background:var(--card)}
+tr.sel td:first-child{background:var(--card)}
+
+/* modal */
+.scrim{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:flex-end;justify-content:center;z-index:20;padding:0}
+.scrim.open{display:flex}
+.modal{background:var(--canvas);border-radius:var(--r-lg) var(--r-lg) 0 0;padding:24px 16px calc(24px + env(safe-area-inset-bottom,0px));width:100%;max-width:720px;max-height:86%;overflow:auto;box-shadow:0 0 16px rgba(0,0,0,.25);animation:rise .3s cubic-bezier(.3,.7,.2,1)}
+@keyframes rise{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
+.index-list{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}
+.index-item{background:var(--card);border-radius:var(--r-md);padding:12px 14px;text-align:left;min-height:64px;display:flex;flex-direction:column;justify-content:space-between;gap:6px}
+.index-item.cur{box-shadow:inset 0 0 0 2px var(--ink)}
+.index-item span{font-size:12px;color:var(--mute);font-weight:500}
+.index-item b{font-size:14px;color:var(--ink);line-height:1.25}
+
+/* cover */
+.cover-grid{display:grid;gap:32px}
+.chain{display:flex;flex-wrap:wrap;gap:6px}
+.chain span{height:32px;padding:0 12px;border-radius:var(--r-full);background:var(--card);color:var(--mute);font-size:13px;font-weight:600;display:inline-flex;align-items:center;transition:background .4s,color .4s}
+.chain span.lit{background:var(--ink);color:var(--canvas)}
+.beds{display:grid;grid-template-columns:repeat(12,1fr);gap:6px}
+.bed{aspect-ratio:1;border-radius:50%;background:transparent;box-shadow:inset 0 0 0 2px var(--stone);transition:background .35s,box-shadow .35s}
+.bed.open{box-shadow:inset 0 0 0 2px var(--ash)}
+.bed.occ{background:var(--ink);box-shadow:none}
+.bed.closed{opacity:.35}
+
+/* misc */
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--mute);font-weight:500}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:6px;vertical-align:-1px}
+svg text{font-family:var(--font-b)}
+.tip{font-size:12px;color:var(--mute)}
+.seg{display:inline-flex;background:var(--card);border-radius:var(--r-full);padding:4px}
+.seg button{height:36px;padding:0 14px;border-radius:var(--r-full);font-weight:700;font-size:13px;color:var(--mute)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--canvas)}
+.flow{display:flex;flex-direction:column;gap:8px}
+.flow-step{background:var(--card);border-radius:var(--r-md);padding:14px 16px;text-align:left;width:100%;display:flex;justify-content:space-between;align-items:center;gap:12px;transition:background .25s}
+.flow-step.on{background:var(--ink)}
+.flow-step.on *{color:var(--canvas)!important}
+.flow-step b{font-size:15px;color:var(--ink)}
+.flow-step span{font-size:13px;color:var(--mute);font-variant-numeric:tabular-nums}
+.tile{background:var(--card);border-radius:var(--r-md);padding:16px;text-align:left;width:100%;display:flex;flex-direction:column;gap:8px;min-height:88px}
+.tile.open{background:var(--canvas);box-shadow:inset 0 0 0 2px var(--ink)}
+.tile .more{font-size:14px;color:var(--body);display:none}
+.tile.open .more{display:block}
+.tile .h-md{display:flex;justify-content:space-between;gap:8px;align-items:center}
+.heat{display:grid;grid-template-columns:auto 1fr 1fr 1fr;gap:4px;font-size:13px;font-variant-numeric:tabular-nums}
+.heat div{padding:10px 6px;border-radius:12px;text-align:center;background:var(--card);color:var(--ink);font-weight:600}
+.heat .hd{background:transparent;color:var(--mute);font-weight:600;font-size:12px;padding:6px 4px}
+.heat .hi{background:var(--succ-pale);color:var(--succ)}
+.heat .base{box-shadow:inset 0 0 0 2px var(--ink)}
+.foot{padding:32px 16px;border-top:1px solid var(--hair);background:var(--canvas)}
+.fade-in{animation:fadein .5s both}
+@keyframes fadein{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+@media (min-width:640px){
+  .nav-title{display:block}
+  .wrap{padding:40px 24px 64px}
+  .brand small{display:inline}
+  .g2{grid-template-columns:1fr 1fr}
+  .g3{grid-template-columns:1fr 1fr 1fr}
+  .g4{grid-template-columns:repeat(4,1fr)}
+  .masonry{columns:3}
+  .bar-row{grid-template-columns:130px 1fr 72px}
+  .index-list{grid-template-columns:repeat(3,1fr)}
+  .scrim{align-items:center;padding:24px}
+  .modal{border-radius:var(--r-lg);padding:32px}
+  .chips{margin:0;padding-left:0;padding-right:0}
+}
+@media (min-width:960px){
+  .d-xl{font-size:70px}
+  .d-lg{font-size:44px}
+  .cover-grid{grid-template-columns:1.1fr .9fr;align-items:center;gap:48px}
+  .masonry{columns:4}
+  .nav{padding:0 24px}.dock{padding:0 24px}
+  .two-col{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:start}
+  .two-col.wide-l{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr)}
+  .stat.big .v{font-size:40px}
+}
+@media (max-width:420px){
+  .brand b{font-size:15px}
+  .nav{gap:8px;padding:0 12px}
+  .btn{padding:6px 14px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important}
+}
+
+.stat.big .v{font-size:32px}
+.gr{transform-box:fill-box;transform-origin:bottom;animation:grow .6s both cubic-bezier(.3,.7,.2,1)}
+@keyframes grow{from{transform:scaleY(0)}}
+.dr{stroke-dasharray:1;animation:draw 1s both cubic-bezier(.3,.7,.2,1)}
+@keyframes draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+
+.nav-spacer{flex:1}
+.brand{flex:1}
+@media (min-width:640px){.brand{flex:none}}
+.sticky-strip{position:sticky;top:0;z-index:4;display:flex;gap:16px;flex-wrap:wrap;justify-content:space-between;background:var(--ink);color:var(--canvas);border-radius:var(--r-md);padding:10px 16px;margin:12px 0 0;font-size:12px;font-weight:500}
+.sticky-strip b{font-size:15px;font-weight:700;margin-right:4px;font-variant-numeric:tabular-nums}
+@media (max-width:959px){.rev-m{display:flex;flex-direction:column;gap:24px}.rev-m>:last-child{order:-1}}
+@media (min-width:960px){.sticky-strip{display:none}}
+
+.grid>*,.two-col>*,.rev-m>*{min-width:0}
+.tile{min-height:56px}
+.flow-step span{white-space:nowrap}
+.flow-step b{min-width:0}
+
+/* ---- revised deck additions ---- */
+.rg{display:flex;flex-direction:column;gap:2px}
+.rg-row{display:grid;grid-template-columns:104px 1fr 56px;align-items:center;gap:10px;min-height:44px;border-radius:var(--r-md);padding:0 8px;text-align:left;width:100%}
+.rg-row.sel{background:var(--card)}
+.rg-row .n{font-weight:600;font-size:14px;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rg-row .v{font-weight:700;font-size:14px;text-align:right;color:var(--ink);font-variant-numeric:tabular-nums}
+.rg-track{position:relative;height:26px;background:var(--card);border-radius:var(--r-full)}
+.rg-row.sel .rg-track{background:var(--canvas)}
+.rg-bar{position:absolute;top:6px;bottom:6px;border-radius:var(--r-full);background:var(--stone);transition:left .6s cubic-bezier(.3,.7,.2,1),width .6s cubic-bezier(.3,.7,.2,1)}
+.rg-tick{position:absolute;top:2px;bottom:2px;width:4px;margin-left:-2px;border-radius:2px;background:var(--ink);transition:left .6s cubic-bezier(.3,.7,.2,1)}
+.rg-mk{position:absolute;top:-4px;bottom:-4px;width:0;border-left:2px dashed var(--ash);transition:left .6s cubic-bezier(.3,.7,.2,1);z-index:1}
+.rg-axis{display:flex;justify-content:space-between;font-size:12px;color:var(--mute);padding:6px 74px 0 122px}
+.evb{display:flex;flex-direction:column;gap:6px}
+.evb-row{display:grid;grid-template-columns:104px 1fr 44px;gap:10px;align-items:center;min-height:30px}
+.evb-row .n{font-weight:600;font-size:14px;color:var(--ink)}
+.evb-row .v{font-weight:700;font-size:14px;text-align:right;color:var(--ink)}
+.evb-track{position:relative;height:18px;background:var(--card);border-radius:var(--r-full);overflow:hidden}
+.evb-fill{position:absolute;left:0;top:0;bottom:0;width:0;background:var(--ink);border-radius:var(--r-full);transition:width .7s cubic-bezier(.3,.7,.2,1)}
+.evb-band{position:absolute;top:0;bottom:0;background:var(--ash);opacity:.9}
+.rv-row{display:grid;grid-template-columns:104px 1fr 92px;gap:10px;align-items:center;min-height:42px;border-radius:var(--r-md);padding:0 8px;text-align:left;width:100%}
+.rv-row.sel{background:var(--card)}
+.rv-row .n{font-weight:600;font-size:14px;color:var(--ink)}
+.rv-row .v{font-weight:700;font-size:13px;text-align:right;color:var(--ink);white-space:nowrap}
+.rv-track{display:flex;flex-direction:column;gap:4px}
+.rv-b{height:9px;border-radius:var(--r-full);width:0;transition:width .8s cubic-bezier(.3,.7,.2,1)}
+.rv-b.base{background:var(--ink)}.rv-b.imp{background:var(--stone)}
+.stk{display:flex;height:42px;border-radius:var(--r-md);overflow:hidden;background:var(--card)}
+.stk-seg{display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;transition:width .5s cubic-bezier(.3,.7,.2,1);white-space:nowrap;overflow:hidden}
+.stk-leg{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--mute);margin-top:8px;font-weight:500}
+.stk-leg i{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:6px;vertical-align:-1px}
+.stk-leg b{color:var(--ink)}
+.tree{display:flex;flex-direction:column;gap:6px;border-left:3px solid var(--sec);padding-left:12px}
+.tr-row{display:grid;grid-template-columns:84px 1fr 68px;gap:10px;align-items:center;min-height:50px}
+.tr-lab{display:flex;flex-direction:column;gap:4px;align-items:flex-start}
+.tr-lab b{color:var(--ink);font-size:14px}
+.tr-row .v{font-weight:700;font-size:14px;text-align:right;color:var(--ink)}
+.tr-track{position:relative;height:30px;background:var(--card);border-radius:var(--r-full)}
+.tr-fill{position:absolute;left:0;top:0;bottom:0;border-radius:var(--r-full);background:var(--ink);transition:width .6s cubic-bezier(.3,.7,.2,1),opacity .3s}
+.tr-fill.lite{background:var(--stone)}
+.tr-mk{position:absolute;top:-4px;bottom:-4px;border-left:2px dashed var(--ash);z-index:2;transition:left .5s}
+.bar-track .tr-mk{top:0;bottom:0}
+.legend i.sq{border-radius:2px}
+.stage .two-col>*{min-width:0}
+@media (max-width:420px){.rg-row{grid-template-columns:84px 1fr 44px}.rg-axis{padding:6px 62px 0 102px;font-size:11px}.rv-row{grid-template-columns:84px 1fr 80px}.tr-row{grid-template-columns:70px 1fr 60px}}
+
+.flow-step>div{min-width:0;flex:1}.flow-step>span{flex:none}
+.flow-step.on>div,.flow-step.on>span{color:var(--canvas)!important}
+@media (max-width:420px){
+  .rg-row,.rv-row{grid-template-columns:92px 1fr 48px}.rv-row{grid-template-columns:92px 1fr 84px}.tr-row{grid-template-columns:76px 1fr 60px}
+  .rg-row .n,.rv-row .n,.bar-row .n{font-size:13px}
+  .rg-axis{padding:6px 58px 0 110px}
+}
+.flow-step>div span{white-space:normal}
+
+</style>
+</head>
+<body>
+<header class="nav">
+  <div class="brand"><span id="logo"></span><b>Mindful Finance</b><small>India Hospitals</small></div>
+  <div class="nav-title" id="nav-title"></div>
+  <button class="counter num" id="counter" aria-label="Open slide index">1 / 12</button>
+  <button class="btn btn-primary" id="next" aria-label="Next slide">Next</button>
+</header>
+<main class="stage" id="stage"><div class="track" id="track"></div></main>
+<nav class="dock" aria-label="Slide navigation">
+  <button class="btn-circ" id="prev" aria-label="Previous slide"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+  <div class="dots" id="dots"></div>
+  <button class="btn-circ" id="next2" aria-label="Next slide"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
+</nav>
+<div class="scrim" id="scrim" role="dialog" aria-modal="true" aria-label="Slide index">
+  <div class="modal">
+    <div class="row" style="justify-content:space-between"><h2 class="h-lg">All slides</h2><button class="btn-circ" id="close-index" aria-label="Close"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+    <div class="index-list" id="index-list"></div>
+  </div>
+</div>
+<script>
+const D={"Medanta":{"name":"Global Health (Medanta)","short":"Medanta","rev":[2694.2,3275.1,3692.3,3709.4,4377.1,5077.4,5788.2,6482.8,7131.1],"ebitda":[null,null,822.6,820.2,984.8,1178.0,1377.6,1568.8,1747.1],"pat":[326.1,478.2,481.4,496.2,529.5,644.5,772.5,905.8,1016.2],"capex":[null,null,null,815.95,787.87,761.61,694.59,518.63,427.87],"nd":[74.98,-5.27,97.68,586.75,606.45,449.25,69.31,-635.76,-1570.65],"roce":[null,null,null,null,0.1158,0.1291,0.1439,0.1524,0.1516],"roe":[0.1343,0.1646,0.1421,0.1237,0.1253,0.1373,0.1468,0.1527,0.1516],"int":[null,null,null,null,38.139,39.419,29.201,4.505,0],"g":[0.18,0.16,0.14,0.12,0.1],"m":[0.225,0.232,0.238,0.242,0.245],"cfo":0.78,"da":0.055,"nwc":0.015,"tax":0.25,"wacc":0.105,"tg":0.05,"evx":24,"pe":45,"mcap":38540.51,"cpe":67.31,"val":{"dcf":14355.16618226087,"eve":27821.692706189344,"pe":29000.703122418374,"w":21383.182048282364,"gap":-0.4451764637187634,"impg":0.08794606065016163,"nd26":586.751,"ev":39127.261},"key":"Medanta","ta":{"nd26":586.751,"pvx":1534.6878726712598,"pvt":11249.831378612773,"dcfev":12784.519251284033,"dcf":12197.768251284033,"leg":14355.16618226087,"infl":2157.3979309768365,"tp":0.8799573263173646,"reinv":0.04465709728867617,"roic":1.1196428571428587,"flag":"VERY HIGH","ev":39127.261},"be":{"unit":"Beds","cap":3665,"op":3192,"occ":0.62,"arpob":66550,"per":"FY26","evu":12.257913847117795,"rpu":1.1620858395989975,"lowrc":2394,"highrc":5497.5,"evhi":7.117282582992269,"ev":39127.261,"head":0.13,"rhead":1007.9689620000001,"ehead":222.8729493540448},"so":{"sh":0.8,"g":0.08,"mx":24,"rf":0.65,"pf":0.8,"matev":15747.5328,"rampev":2558.9740799999995,"futpv":6316.690695428225,"eq":24036.446575428225,"nd":586.751,"e26":820.184,"e31":1747.119986510385},"ro":{"mm":0.5819297998704898,"gap":0.33692979987048977,"mr":-2.1923854432277285,"mroic":null,"test":"VERY DEMANDING","txt":"Price requires a much higher operating margin than the base model."},"mc":{"p10":8941.796513335366,"p25":10303.416077343327,"p50":12099.056559869136,"p75":14302.65189179434,"p90":16715.81712852766,"pr":0,"d1":"WACC","d2":"Revenue CAGR","c1":-0.6674644088598296,"c2":0.43691932808370787},"vr":{"dcf":12197.768251284033,"sotp":24036.446575428225,"eve":27821.692706189344,"pe":29000.703122418374,"sc":12379.384963943878,"p25":10303.416077343327,"p50":12099.056559869136,"p75":14302.65189179434,"lo":10303.416077343327,"ce":18207.91576968605,"hi":29000.703122418374,"pos":"Above model range","unc":"LOW","drv":"WACC"},"scn":{"Bear":{"p":0.25,"cagr":0.09964899311933498,"m31":0.215,"cx":1.1,"wacc":0.11499999999999999,"tg":0.045000000000000005,"eq":5771.132769154967},"Base":{"p":0.5,"cagr":0.13964899311933499,"m31":0.245,"cx":1,"wacc":0.105,"tg":0.05,"eq":12103.055854996413},"Bull":{"p":0.25,"cagr":0.16964899311933498,"m31":0.265,"cx":0.95,"wacc":0.09999999999999999,"tg":0.055,"eq":19540.29537662772}}},"Narayana":{"name":"Narayana Health","short":"Narayana","rev":[4524.8,5018.2,5483.0,7896.0,9475.2,10991.3,12420.1,13786.4,15165.0],"ebitda":[null,null,1368.4,1015.9,1326.5,1703.6,2111.4,2481.5,2881.3],"pat":[606.2,789.3,790.2,805.6,602.5,846.2,1130.3,1395.9,1649.2],"capex":[null,null,null,521.92,947.52,989.22,993.61,965.05,909.9],"nd":[607.48,1179.89,1756.17,1489.57,1243.22,699.15,-207.52,-1475.87,-3159.18],"roce":[null,null,null,null,0.1098,0.1432,0.1791,0.1949,0.1968],"roe":[0.2843,0.2736,0.2178,0.1775,0.126,0.1579,0.1838,0.1949,0.1968],"int":[null,null,null,null,96.822,80.809,45.445,0,0],"g":[0.2,0.16,0.13,0.11,0.1],"m":[0.14,0.155,0.17,0.18,0.19],"cfo":0.9,"da":0.045,"nwc":0.015,"tax":0.25,"wacc":0.105,"tg":0.05,"evx":22,"pe":40,"mcap":37195.71,"cpe":43.15,"val":{"dcf":21898.21806337393,"eve":36781.11994284,"pe":33846.95574539999,"w":28606.12795374696,"gap":-0.23092937455026508,"impg":0.07962406914131161,"nd26":1489.572,"ev":38685.282},"key":"Narayana","ta":{"nd26":1489.572,"pvx":2503.540491840362,"pvt":16235.493731841514,"dcfev":18739.034223681876,"dcf":17249.462223681876,"leg":21898.21806337393,"infl":4648.755839692054,"tp":0.8663997054513911,"reinv":0.15047021943573657,"roic":0.33229166666666693,"flag":"VERY HIGH","ev":38685.282},"be":{"unit":"Beds","cap":5750,"op":5451,"occ":0.625,"arpob":null,"per":"FY26 / management typical occupancy","evu":7.096914694551458,"rpu":1.4485479728490185,"lowrc":4088.25,"highrc":8625,"evhi":4.485250086956522,"ev":38685.282,"head":0.125,"rhead":null,"ehead":null},"so":{"sh":0.85,"g":0.07,"mx":22,"rf":0.65,"pf":0.85,"matev":18996.9934,"rampev":2179.06689,"futpv":16532.84263612342,"eq":36219.330926123424,"nd":1489.572,"e26":1015.882,"e31":2881.3499520830637},"ro":{"mm":0.3057385930458133,"gap":0.1157385930458133,"mr":-0.893226496929783,"mroic":null,"test":"DEMANDING","txt":"Terminal economics are not internally consistent at current EV."},"mc":{"p10":11733.664617355891,"p25":14087.541660042083,"p50":17102.39757883617,"p75":20576.00970969167,"p90":24569.506753514885,"pr":0.0032,"d1":"WACC","d2":"FY31 EBITDA margin","c1":-0.5989734781001531,"c2":0.5566150150266147},"vr":{"dcf":17249.462223681876,"sotp":36219.330926123424,"eve":36781.11994284,"pe":33846.95574539999,"sc":17535.804267994507,"p25":14087.541660042083,"p50":17102.39757883617,"p75":20576.00970969167,"lo":14087.541660042083,"ce":25691.380006697247,"hi":36781.11994284,"pos":"Above model range","unc":"LOW-MEDIUM","drv":"WACC"},"scn":{"Bear":{"p":0.25,"cagr":0.09942742556142029,"m31":0.16,"cx":1.1,"wacc":0.11499999999999999,"tg":0.045000000000000005,"eq":6743.772829052195},"Base":{"p":0.5,"cagr":0.1394274255614203,"m31":0.19,"cx":1,"wacc":0.105,"tg":0.05,"eq":17032.54113550038},"Bull":{"p":0.25,"cagr":0.1694274255614203,"m31":0.21,"cx":0.95,"wacc":0.09999999999999999,"tg":0.055,"eq":29334.361971925067}}},"KIMS":{"name":"KIMS","short":"KIMS","rev":[2197.7,2498.1,3035.1,3904.6,4763.6,5621.1,6520.4,7433.3,8325.3],"ebitda":[null,162.8,null,828.2,1024.2,1236.6,1467.1,1709.7,1956.4],"pat":[336.3,310.1,384.5,241.4,519.9,619.5,743.6,887.7,1058.3],"capex":[null,null,null,1427.9,1333.81,1236.63,1173.68,892.0,666.02],"nd":[616.56,1308.44,2500.7,1427.7,1993.38,2302.54,2375.89,1985.64,1184.34],"roce":[null,null,null,null,0.1317,0.1335,0.1401,0.152,0.1703],"roe":[0.1735,0.1482,0.159,0.0944,0.1879,0.1923,0.1974,0.2008,0.2036],"int":[null,null,null,null,92.8,129.57,149.665,154.433,129.067],"g":[0.22,0.18,0.16,0.14,0.12],"m":[0.215,0.22,0.225,0.23,0.235],"cfo":0.75,"da":0.05,"nwc":0.018,"tax":0.25,"wacc":0.11,"tg":0.05,"evx":20,"pe":40,"mcap":32191.4,"cpe":154.35,"val":{"dcf":8204.61366227705,"eve":22430.136160199996,"pe":24780.328112249998,"w":15904.922899251023,"gap":-0.5059263374922798,"impg":0.09276682332766585,"nd26":1427.7,"ev":33619.1},"key":"KIMS","ta":{"nd26":1427.7,"pvx":153.0157691803767,"pvt":9235.93329424312,"dcfev":9388.949063423495,"dcf":7961.2490634234955,"leg":8204.61366227705,"infl":243.36459885355453,"tp":0.9837025669063986,"reinv":0.23011583011583014,"roic":0.21728187919463085,"flag":"EXTREME","ev":33619.1},"be":{"unit":"Beds","cap":6464,"op":4852,"occ":0.505,"arpob":44644,"per":"FY26","evu":6.928915910964551,"rpu":0.8047403132728771,"lowrc":3639,"highrc":9696,"evhi":3.467316419141914,"ev":33619.1,"head":0.245,"rhead":1937.0589624399997,"ehead":410.86724189233416},"so":{"sh":0.7,"g":0.08,"mx":20,"rf":0.6,"pf":0.75,"matev":11594.8,"rampev":2981.5200000000004,"futpv":6583.260319327847,"eq":19731.880319327847,"nd":1427.7,"e26":828.2,"e31":1956.4426124210686},"ro":{"mm":0.5268525903660669,"gap":0.2918525903660669,"mr":-1.7896486101061329,"mroic":null,"test":"VERY DEMANDING","txt":"Price requires a much higher operating margin than the base model."},"mc":{"p10":5062.909310941565,"p25":6320.417770116368,"p50":7902.368139170395,"p75":9776.667955504005,"p90":11718.770218382511,"pr":0,"d1":"WACC","d2":"FY31 EBITDA margin","c1":-0.5725019342302818,"c2":0.5050001530348224},"vr":{"dcf":7961.2490634234955,"sotp":19731.880319327847,"eve":22430.136160199996,"pe":24780.328112249998,"sc":8138.975015319849,"p25":6320.417770116368,"p50":7902.368139170395,"p75":9776.667955504005,"lo":6320.417770116368,"ce":13935.42766732385,"hi":24780.328112249998,"pos":"Above model range","unc":"LOW","drv":"WACC"},"scn":{"Bear":{"p":0.25,"cagr":0.12349505077318604,"m31":0.205,"cx":1.1,"wacc":0.12,"tg":0.045000000000000005,"eq":2257.6125597344962},"Base":{"p":0.5,"cagr":0.16349505077318605,"m31":0.235,"cx":1,"wacc":0.11,"tg":0.05,"eq":7944.986884209981},"Bull":{"p":0.25,"cagr":0.19349505077318604,"m31":0.255,"cx":0.95,"wacc":0.105,"tg":0.055,"eq":14408.31373312494}}},"DrAgarwal":{"name":"Dr Agarwal's Health Care","short":"Dr Agarwal","rev":[null,1332.2,1711,2080.1,2579.3,3095.2,3652.3,4236.7,4829.8],"ebitda":[null,406.6,null,614.0,773.8,944.0,1132.2,1321.8,1521.4],"pat":[null,83.1,83.5,133.2,451.3,557.1,671.1,784.8,905.6],"capex":[null,null,null,460.58,515.86,526.18,511.32,466.03,434.68],"nd":[null,854.69,143.26,66.72,-98.36,-402.92,-887.94,-1585.13,-2489.26],"roce":[null,null,null,null,0.1948,0.2061,0.2101,0.2078,0.2033],"roe":[null,0.0602,0.0433,0.0628,0.1962,0.2061,0.2101,0.2078,0.2033],"int":[null,null,null,null,4.337,0,0,0,0],"g":[0.24,0.2,0.18,0.16,0.14],"m":[0.3,0.305,0.31,0.312,0.315],"cfo":0.88,"da":0.065,"nwc":0.012,"tax":0.25,"wacc":0.11,"tg":0.055,"evx":30,"pe":55,"mcap":15965.44,"cpe":108.11,"val":{"dcf":12750.149811597632,"eve":28723.624014335997,"pe":30642.074495999997,"w":21216.499533382816,"gap":0.32890164839696334,"impg":0.07604070127687158,"nd26":66.72,"ev":16032.16},"key":"DrAgarwal","ta":{"nd26":66.72,"pvx":1407.7024711658596,"pvt":8853.185216495964,"dcfev":10260.887687661823,"dcf":10194.167687661824,"leg":12750.149811597632,"infl":2555.982123935808,"tp":0.8628088997739886,"reinv":0.14119298245614031,"roic":0.3895377733598411,"flag":"VERY HIGH","ev":16032.16},"be":{"unit":"Facilities","cap":288,"op":288,"occ":null,"arpob":null,"per":"FY26","evu":55.66722222222222,"rpu":7.2225,"lowrc":null,"highrc":null,"evhi":null,"ev":16032.16,"head":null,"rhead":null,"ehead":null},"so":{"sh":0.78,"g":0.1,"mx":30,"rf":0.65,"pf":0.8,"matev":14367.833999999999,"rampev":2634.1029,"futpv":7584.494502385562,"eq":24519.71140238556,"nd":66.72,"e26":614.01,"e31":1521.3823414981632},"ro":{"mm":0.42672557114398924,"gap":0.11172557114398923,"mr":-0.4186517559954426,"mroic":null,"test":"VERY DEMANDING","txt":"Price requires a much higher operating margin than the base model."},"mc":{"p10":7664.8452013597935,"p25":8760.746530229226,"p50":10083.213837575697,"p75":11726.577069335879,"p90":13482.826341443222,"pr":0.0244,"d1":"WACC","d2":"Revenue CAGR","c1":-0.6842060130991204,"c2":0.44038509300559087},"vr":{"dcf":10194.167687661824,"sotp":24519.71140238556,"eve":28723.624014335997,"pe":30642.074495999997,"sc":10309.458636769254,"p25":8760.746530229226,"p50":10083.213837575697,"p75":11726.577069335879,"lo":8760.746530229226,"ce":17414.585019577407,"hi":30642.074495999997,"pos":"Within model range","unc":"LOW","drv":"WACC"},"scn":{"Bear":{"p":0.25,"cagr":0.14350352507269706,"m31":0.28500000000000003,"cx":1.1,"wacc":0.12,"tg":0.05,"eq":5263.620227741967},"Base":{"p":0.5,"cagr":0.18350352507269707,"m31":0.315,"cx":1,"wacc":0.11,"tg":0.055,"eq":10115.214136236274},"Bull":{"p":0.25,"cagr":0.21350352507269707,"m31":0.335,"cx":0.95,"wacc":0.105,"tg":0.06,"eq":15743.786046862499}}},"Rainbow":{"name":"Rainbow Children's Medicare","short":"Rainbow","rev":[1173.6,1296.9,1515.9,1703.1,2009.6,2331.2,2657.5,2976.4,3303.8],"ebitda":[null,394.4,null,471.9,562.7,666.7,776.0,881.0,991.2],"pat":[210.8,217.0,243.4,278.3,339.1,403.9,472.4,538.0,607.1],"capex":[null,null,null,199.89,261.25,256.43,239.18,238.12,231.27],"nd":[-15.41,-10.12,-20.25,-33.89,-250.93,-561.21,-981.64,-1492.39,-2103.6],"roce":[null,null,null,null,0.1885,0.1926,0.193,0.1887,0.1835],"roe":[0.198,0.1716,0.165,0.1673,0.1885,0.1926,0.193,0.1887,0.1835],"int":[null,null,null,null,0,0,0,0,0],"g":[0.18,0.16,0.14,0.12,0.11],"m":[0.28,0.286,0.292,0.296,0.3],"cfo":0.85,"da":0.055,"nwc":0.012,"tax":0.25,"wacc":0.105,"tg":0.05,"evx":24,"pe":45,"mcap":13941.04,"cpe":48.67,"val":{"dcf":9831.214494378904,"eve":16562.376317866958,"pe":18174.398127038996,"w":13599.80085841594,"gap":-0.024477308836647893,"impg":0.07628423889616304,"nd26":-33.894,"ev":13907.146},"key":"Rainbow","ta":{"nd26":-33.894,"pvx":1312.4454809788028,"pvt":6415.164627920303,"dcfev":7727.610108899106,"dcf":7761.5041088991065,"leg":9831.214494378904,"infl":2069.710385479798,"tp":0.8301615295694859,"reinv":0.08810443096157405,"roic":0.5675083472454076,"flag":"HIGH","ev":13907.146},"be":{"unit":"Beds","cap":2375,"op":1523,"occ":0.505,"arpob":60141,"per":"FY26","evu":9.131415627051872,"rpu":1.1182383453709783,"lowrc":1142.25,"highrc":3562.5,"evhi":3.9037602807017544,"ev":13907.146,"head":0.245,"rhead":819.0859892775,"ehead":226.96505479781092},"so":{"sh":0.8,"g":0.08,"mx":24,"rf":0.65,"pf":0.85,"matev":9060.768,"rampev":1472.3747999999998,"futpv":3687.0598732164917,"eq":14254.096673216492,"nd":-33.894,"e26":471.915,"e31":991.1545703415017},"ro":{"mm":0.4698977509011653,"gap":0.16989775090116532,"mr":-0.7902972507791541,"mroic":null,"test":"VERY DEMANDING","txt":"Price requires a much higher operating margin than the base model."},"mc":{"p10":5967.508291483587,"p25":6751.17136193533,"p50":7757.206446209244,"p75":8929.293318913764,"p90":10216.139526844285,"pr":0.0054,"d1":"WACC","d2":"Revenue CAGR","c1":-0.691475887162307,"c2":0.45932856818427686},"vr":{"dcf":7761.5041088991065,"sotp":14254.096673216492,"eve":16562.376317866958,"pe":18174.398127038996,"sc":7856.688925130372,"p25":6751.17136193533,"p50":7757.206446209244,"p75":8929.293318913764,"lo":6751.17136193533,"ce":11055.392799173433,"hi":18174.398127038996,"pos":"Within model range","unc":"LOW","drv":"WACC"},"scn":{"Bear":{"p":0.25,"cagr":0.10171358816789836,"m31":0.27,"cx":1.1,"wacc":0.11499999999999999,"tg":0.045000000000000005,"eq":4256.176727345628},"Base":{"p":0.5,"cagr":0.14171358816789836,"m31":0.3,"cx":1,"wacc":0.105,"tg":0.05,"eq":7712.479650629042},"Bull":{"p":0.25,"cagr":0.17171358816789836,"m31":0.32,"cx":0.95,"wacc":0.09999999999999999,"tg":0.055,"eq":11745.619671917775}}},"ParkMedi":{"name":"Park Medi World","short":"Park Medi","rev":[null,null,null,1679.4,1981.6,2298.7,2620.5,2935.0,3228.5],"ebitda":[null,null,null,417.0,499.4,593.1,689.2,786.6,878.1],"pat":[null,null,null,258.1,300.2,358.6,418.6,479.9,537.5],"capex":[null,null,null,119.69,198.16,206.88,209.64,205.45,193.71],"nd":[null,null,null,-67.33,-278.65,-558.08,-913.58,-1353.13,-1879.5],"roce":[null,null,null,null,0.135,0.1441,0.1496,0.1519,0.1508],"roe":[null,null,null,0.1227,0.135,0.1441,0.1496,0.1519,0.1508],"int":[null,null,null,null,0,0,0,0,0],"g":[0.18,0.16,0.14,0.12,0.1],"m":[0.252,0.258,0.263,0.268,0.272],"cfo":0.82,"da":0.05,"nwc":0.015,"tax":0.25,"wacc":0.11,"tg":0.05,"evx":18,"pe":35,"mcap":11942.89,"cpe":43.01,"val":{"dcf":8287.400670692441,"eve":11233.256749719167,"pe":12550.915610688,"w":10089.743425448012,"gap":-0.1551673484853321,"impg":0.07991477373639765,"nd26":-67.33,"ev":11875.56},"key":"ParkMedi","ta":{"nd26":-67.33,"pvx":1206.326007247721,"pvt":5201.577674840081,"dcfev":6407.903682087803,"dcf":6475.233682087803,"leg":8287.400670692441,"infl":1812.1669886046384,"tp":0.8117440481167345,"reinv":0.06825006825006807,"roic":0.7326000000000019,"flag":"HIGH","ev":11875.56},"be":{"unit":"Beds","cap":3610,"op":2851,"occ":0.641,"arpob":28000,"per":"FY26","evu":4.165401613468958,"rpu":0.5890410382321992,"lowrc":2138.25,"highrc":5415,"evhi":2.193085872576177,"ev":11875.56,"head":0.10899999999999999,"rhead":317.59569799999997,"ehead":78.87071917336645},"so":{"sh":0.8,"g":0.08,"mx":18,"rf":0.65,"pf":0.8,"matev":6005.4624,"rampev":975.88764,"futpv":2267.768921069543,"eq":9316.448961069544,"nd":-67.33,"e26":417.046,"e31":878.1470161678665},"ro":{"mm":0.439733954357399,"gap":0.16773395435739896,"mr":-0.9111620869675123,"mroic":null,"test":"VERY DEMANDING","txt":"Price requires a much higher operating margin than the base model."},"mc":{"p10":5018.09742926426,"p25":5623.708791158451,"p50":6392.037294620445,"p75":7314.294083197168,"p90":8343.909457840351,"pr":0.0016,"d1":"WACC","d2":"Revenue CAGR","c1":-0.6583989640612623,"c2":0.4897331208859193},"vr":{"dcf":6475.233682087803,"sotp":9316.448961069544,"eve":11233.256749719167,"pe":12550.915610688,"sc":6513.684827526347,"p25":5623.708791158451,"p50":6392.037294620445,"p75":7314.294083197168,"lo":5623.708791158451,"ce":7915.0668942979455,"hi":12550.915610688,"pos":"Within model range","unc":"LOW-MEDIUM","drv":"WACC"},"scn":{"Bear":{"p":0.25,"cagr":0.09964899311933498,"m31":0.24200000000000002,"cx":1.1,"wacc":0.12,"tg":0.045000000000000005,"eq":3615.0632215284722},"Base":{"p":0.5,"cagr":0.13964899311933499,"m31":0.272,"cx":1,"wacc":0.11,"tg":0.05,"eq":6419.563749670032},"Bull":{"p":0.25,"cagr":0.16964899311933498,"m31":0.29200000000000004,"cx":0.95,"wacc":0.105,"tg":0.055,"eq":9600.548589236852}}},"Yatharth":{"name":"Yatharth Hospital","short":"Yatharth","rev":[null,670.5,880.5,1207.2,1496.9,1796.3,2101.6,2395.9,2683.4],"ebitda":[null,179.9,220.2,292.1,344.3,431.1,525.4,618.1,711.1],"pat":[null,114.5,130.6,170.3,199.2,253.7,315.2,373.8,432.7],"capex":[null,null,null,null,269.44,287.4,273.21,239.59,214.67],"nd":[101.47,-151.44,-361.65,59.67,46.79,-19.31,-176.93,-444.22,-812.64],"roce":[null,null,null,null,0.1153,0.1345,0.1495,0.1568,0.1599],"roe":[null,0.1309,0.0797,0.1052,0.1172,0.1349,0.1495,0.1568,0.1599],"int":[null,null,null,null,3.878,3.042,0,0,0],"g":[0.24,0.2,0.17,0.14,0.12],"m":[0.23,0.24,0.25,0.258,0.265],"cfo":0.82,"da":0.05,"nwc":0.015,"tax":0.25,"wacc":0.11,"tg":0.05,"evx":20,"pe":40,"mcap":10602.83,"cpe":58.52,"val":{"dcf":4947.134173568625,"eve":8641.415382252799,"pe":10147.5042355056,"w":7170.796991223911,"gap":-0.3236902797438126,"impg":0.08785328341236182,"nd26":59.666,"ev":10662.496},"key":"Yatharth","ta":{"nd26":59.666,"pvx":521.6193730883725,"pvt":3612.8719474779323,"dcfev":4134.491320566305,"dcf":4074.825320566305,"leg":4947.134173568625,"infl":872.3088530023197,"tp":0.873837110143715,"reinv":0.1960132890365448,"roic":0.25508474576271195,"flag":"VERY HIGH","ev":10662.496},"be":{"unit":"Beds","cap":3200,"op":2555,"occ":0.68,"arpob":33124,"per":"FY26","evu":4.173188258317025,"rpu":0.47247436399217224,"lowrc":1916.25,"highrc":4800,"evhi":2.221353333333333,"ev":10662.496,"head":0.06999999999999995,"rhead":216.23430009999987,"ehead":52.322319486543726},"so":{"sh":0.7,"g":0.09,"mx":20,"rf":0.6,"pf":0.75,"matev":4089.4,"rampev":1051.5600000000002,"futpv":2329.2497510526323,"eq":7410.543751052633,"nd":59.666,"e26":292.1,"e31":711.0934764446824},"ro":{"mm":0.507675124646107,"gap":0.24267512464610697,"mr":-1.2566894603746972,"mroic":null,"test":"VERY DEMANDING","txt":"Price requires a much higher operating margin than the base model."},"mc":{"p10":2997.1124992245254,"p25":3479.4193424305745,"p50":4063.9059621203446,"p75":4742.881390387794,"p90":5479.048143121933,"pr":0.0002,"d1":"WACC","d2":"FY31 EBITDA margin","c1":-0.6213720212995707,"c2":0.4505031087270464},"vr":{"dcf":4074.825320566305,"sotp":7410.543751052633,"eve":8641.415382252799,"pe":10147.5042355056,"sc":4143.88118306941,"p25":3479.4193424305745,"p50":4063.9059621203446,"p75":4742.881390387794,"lo":3479.4193424305745,"ce":5777.212467061021,"hi":10147.5042355056,"pos":"Above model range","unc":"LOW","drv":"WACC"},"scn":{"Bear":{"p":0.25,"cagr":0.1332277681724974,"m31":0.23500000000000001,"cx":1.1,"wacc":0.12,"tg":0.045000000000000005,"eq":1998.1246798822397},"Base":{"p":0.5,"cagr":0.1732277681724974,"m31":0.265,"cx":1,"wacc":0.11,"tg":0.05,"eq":4075.2080002931043},"Bull":{"p":0.25,"cagr":0.2032277681724974,"m31":0.28500000000000003,"cx":0.95,"wacc":0.105,"tg":0.055,"eq":6426.984051809191}}},"HCG":{"name":"HealthCare Global (HCG)","short":"HCG","rev":[1694.4,1912.1,2222.8,2545.4,2952.7,3366.1,3770.0,4147.0,4520.2],"ebitda":[null,null,165.8,184.8,354.3,454.4,565.5,663.5,791.0],"pat":[29.3,48.1,44.4,13.8,125.7,184.6,255.8,323.0,406.8],"capex":[null,null,null,156.17,265.74,269.28,263.9,269.55,271.21],"nd":[224.71,400.15,766.36,374.36,356.64,262.39,73.9,-187.36,-548.98],"roce":[null,null,null,null,0.0788,0.1066,0.1393,0.1609,0.1781],"roe":[0.0337,0.0556,0.0449,0.0098,0.0861,0.1165,0.1453,0.1621,0.1781],"int":[null,null,null,null,24.333,23.182,17.056,4.803,0],"g":[0.16,0.14,0.12,0.1,0.09],"m":[0.12,0.135,0.15,0.16,0.175],"cfo":0.8,"da":0.055,"nwc":0.015,"tax":0.25,"wacc":0.115,"tg":0.045,"evx":18,"pe":35,"mcap":10487.46,"cpe":217.67,"val":{"dcf":4498.588714964344,"eve":7917.1074058720005,"pe":6460.1816528550025,"w":5843.616622163923,"gap":-0.44279962715815613,"impg":0.09147221845574523,"nd26":374.36,"ev":10861.82},"key":"HCG","ta":{"nd26":374.36,"pvx":669.8193696929948,"pvt":3279.7896074468113,"dcfev":3949.608977139806,"dcf":3575.248977139806,"leg":4498.588714964344,"infl":923.3397378245381,"tp":0.8304086876524018,"reinv":0.06931702344546387,"roic":0.6491911764705877,"flag":"HIGH","ev":10861.82},"be":{"unit":"Beds","cap":2605,"op":2190,"occ":0.657,"arpob":47242,"per":"9M/FY26 proxy","evu":4.959735159817352,"rpu":1.1622876712328767,"lowrc":1642.5,"highrc":3907.5,"evhi":2.779736404350608,"ev":10861.82,"head":0.09299999999999997,"rhead":351.1949021099999,"ehead":25.497196094117644},"so":{"sh":0.8,"g":0.07,"mx":18,"rf":0.6,"pf":0.8,"matev":2661.12,"rampev":399.1680000000001,"futpv":4443.98078394406,"eq":7129.908783944061,"nd":374.36,"e26":184.8,"e31":791.0352574407361},"ro":{"mm":0.3435287577348425,"gap":0.1685287577348425,"mr":-1.8921127934922453,"mroic":null,"test":"DEMANDING","txt":"Terminal economics are not internally consistent at current EV."},"mc":{"p10":2329.3030641118557,"p25":2827.4995605735603,"p50":3415.86239189787,"p75":4086.2669030182506,"p90":4795.062899472048,"pr":0,"d1":"FY31 EBITDA margin","d2":"WACC","c1":0.6123352403610631,"c2":-0.506949658838514},"vr":{"dcf":3575.248977139806,"sotp":7129.908783944061,"eve":7917.1074058720005,"pe":6460.1816528550025,"sc":3465.916179978462,"p25":2827.4995605735603,"p50":3415.86239189787,"p75":4086.2669030182506,"lo":2827.4995605735603,"ce":5017.715314997404,"hi":7917.1074058720005,"pos":"Above model range","unc":"LOW","drv":"FY31 EBITDA margin"},"scn":{"Bear":{"p":0.25,"cagr":0.0817084959072907,"m31":0.145,"cx":1.1,"wacc":0.125,"tg":0.04,"eq":1244.9891393805515},"Base":{"p":0.5,"cagr":0.12170849590729071,"m31":0.175,"cx":1,"wacc":0.115,"tg":0.045,"eq":3407.596732552625},"Bull":{"p":0.25,"cagr":0.1517084959072907,"m31":0.19499999999999998,"cx":0.95,"wacc":0.11,"tg":0.049999999999999996,"eq":5803.482115428047}}},"Jupiter":{"name":"Jupiter Life Line","short":"Jupiter","rev":[892.5,1069.5,1261.5,1197.6,1413.2,1639.3,1868.8,2093.1,2302.4],"ebitda":[169.5,null,null,329.6,392.9,465.6,540.1,613.3,681.5],"pat":[72.9,176.6,193.2,191.4,241.7,287.7,335.0,381.5,424.8],"capex":[null,null,null,483.19,282.64,262.29,224.26,188.38,161.17],"nd":[334.16,-301.25,-42.61,-269.8,-317.17,-445.96,-675.37,-1002.14,-1413.44],"roce":[null,null,null,null,0.1473,0.1553,0.1594,0.1597,0.1567],"roe":[0.2003,0.1511,0.1424,0.1239,0.1473,0.1553,0.1594,0.1597,0.1567],"int":[null,null,null,null,0,0,0,0,0],"g":[0.18,0.16,0.14,0.12,0.1],"m":[0.278,0.284,0.289,0.293,0.296],"cfo":0.84,"da":0.05,"nwc":0.014,"tax":0.25,"wacc":0.105,"tg":0.05,"evx":22,"pe":40,"mcap":8649.8,"cpe":45.25,"val":{"dcf":6452.523073530914,"eve":10688.352060547071,"pe":11507.940273023996,"w":8775.334620158224,"gap":0.0145130084115499,"impg":0.07318910622736971,"nd26":-269.803,"ev":8379.997},"key":"Jupiter","ta":{"nd26":-269.803,"pvx":684.1262612154978,"pvt":4354.958191189902,"dcfev":5039.0844524054,"dcf":5308.8874524054,"leg":6452.523073530914,"infl":1143.6356211255143,"tp":0.864236000075583,"reinv":0.11529933481152999,"roic":0.433653846153846,"flag":"VERY HIGH","ev":8379.997},"be":{"unit":"Beds","cap":1248,"op":1248,"occ":0.619,"arpob":66800,"per":"9M FY26","evu":6.714741185897435,"rpu":0.9596346153846154,"lowrc":936,"highrc":1872,"evhi":4.476494123931624,"ev":8379.997,"head":0.131,"rhead":398.6164416,"ehead":109.68921800826435},"so":{"sh":0.8,"g":0.08,"mx":22,"rf":0.65,"pf":0.85,"matev":5800.1856,"rampev":942.5301600000001,"futpv":2239.2721400738087,"eq":9251.79090007381,"nd":-269.803,"e26":329.556,"e31":681.5029770054698},"ro":{"mm":0.4274341570442489,"gap":0.13143415704424893,"mr":-0.5634000747885104,"mroic":null,"test":"VERY DEMANDING","txt":"Price requires a much higher operating margin than the base model."},"mc":{"p10":4070.6794640371113,"p25":4600.956839663742,"p50":5298.558586285211,"p75":6078.552282011937,"p90":6985.283399604125,"pr":0.0166,"d1":"WACC","d2":"Revenue CAGR","c1":-0.6981971715904708,"c2":0.4535915949744752},"vr":{"dcf":5308.8874524054,"sotp":9251.79090007381,"eve":10688.352060547071,"pe":11507.940273023996,"sc":5373.6156844908965,"p25":4600.956839663742,"p50":5298.558586285211,"p75":6078.552282011937,"lo":4600.956839663742,"ce":7312.703292282353,"hi":11507.940273023996,"pos":"Within model range","unc":"LOW-MEDIUM","drv":"WACC"},"scn":{"Bear":{"p":0.25,"cagr":0.09964899311933498,"m31":0.266,"cx":1.1,"wacc":0.11499999999999999,"tg":0.045000000000000005,"eq":2912.6609869815243},"Base":{"p":0.5,"cagr":0.13964899311933499,"m31":0.296,"cx":1,"wacc":0.105,"tg":0.05,"eq":5275.510448937545},"Bull":{"p":0.25,"cagr":0.16964899311933498,"m31":0.316,"cx":0.95,"wacc":0.09999999999999999,"tg":0.055,"eq":8030.780853106973}}},"Kovai":{"name":"Kovai Medical","short":"Kovai","rev":[null,null,null,1585.6,1775.9,1971.2,2168.3,2363.5,2552.6],"ebitda":[null,null,null,467.1,529.2,595.3,663.5,730.3,796.4],"pat":[null,null,null,244.5,330.3,372.6,416.3,459.1,501.6],"capex":[null,null,null,null,159.83,157.7,162.63,165.44,165.92],"nd":[null,null,null,null,-290.0,-638.31,-1039.67,-1495.0,-2006.02],"roce":[null,null,null,null,2.5,0.9015,0.5712,0.4255,0.3428],"roe":[null,null,null,null,1.25,0.9015,0.5712,0.4255,0.3428],"int":[null,null,null,null,0,0,0,0,0],"g":[0.12,0.11,0.1,0.09,0.08],"m":[0.298,0.302,0.306,0.309,0.312],"cfo":0.85,"da":0.05,"nwc":0.012,"tax":0.25,"wacc":0.105,"tg":0.045,"evx":16,"pe":30,"mcap":6591.35,"cpe":25.72,"val":{"dcf":8188.392267831634,"eve":10163.239093504002,"pe":11176.805606400001,"w":9429.207308891819,"gap":0.43054265194411134,"impg":0.0494113263132775,"nd26":0,"ev":6591.35},"key":"Kovai","ta":{"nd26":0,"pvx":1308.4780198355159,"pvt":4873.889643932533,"dcfev":6182.367663768048,"dcf":6182.367663768048,"leg":8188.392267831634,"infl":2006.0246040635857,"tp":0.7883532505671104,"reinv":0.08085948543963817,"roic":0.5565209790209786,"flag":"HIGH","ev":6591.35},"be":{"unit":"Beds","cap":2035,"op":1850,"occ":0.6341,"arpob":24714,"per":"FY26","evu":3.562891891891892,"rpu":0.857081081081081,"lowrc":1387.5,"highrc":3052.5,"evhi":2.1593284193284195,"ev":6591.35,"head":0.1159,"rhead":193.41540931499998,"ehead":56.9780131754771},"so":{"sh":0.9,"g":0.06,"mx":16,"rf":0.7,"pf":0.9,"matev":6726.240000000001,"rampev":523.1519999999997,"futpv":1497.4431537394694,"eq":8746.83515373947,"nd":0,"e26":467.1,"e31":796.4016867975171},"ro":{"mm":0.3260853794136726,"gap":0.014085379413672605,"mr":0.003731716361340398,"mroic":12.058794303390307,"test":"CLOSER TO MODEL","txt":"Compare margin, reinvestment and growth assumptions rather than the point DCF."},"mc":{"p10":4835.087406055732,"p25":5416.029897494944,"p50":6146.086825512077,"p75":7018.800375330909,"p90":7971.440199533658,"pr":0.3668,"d1":"WACC","d2":"Revenue CAGR","c1":-0.6710931248821594,"c2":0.5402628221832186},"vr":{"dcf":6182.367663768048,"sotp":8746.83515373947,"eve":10163.239093504002,"pe":11176.805606400001,"sc":6237.175862428958,"p25":5416.029897494944,"p50":6146.086825512077,"p75":7018.800375330909,"lo":5416.029897494944,"ce":7492.005508084214,"hi":11176.805606400001,"pos":"Within model range","unc":"LOW-MEDIUM","drv":"WACC"},"scn":{"Bear":{"p":0.25,"cagr":0.059909081891574435,"m31":0.28200000000000003,"cx":1.1,"wacc":0.11499999999999999,"tg":0.04,"eq":3567.4595549089704},"Base":{"p":0.5,"cagr":0.09990908189157444,"m31":0.312,"cx":1,"wacc":0.105,"tg":0.045,"eq":6151.6310124799675},"Bull":{"p":0.25,"cagr":0.12990908189157443,"m31":0.332,"cx":0.95,"wacc":0.09999999999999999,"tg":0.049999999999999996,"eq":9077.981869846928}}}};
+const META={"src": [["Global Health (Medanta)", "FY23\u2013FY26", "Historical financials", "FinancialFilings structured annual data", "https://financialfilings.com/", "Structured data; specific line-item comparability checked manually where needed."], ["Narayana Health", "FY23\u2013FY26", "Historical financials", "FinancialFilings structured annual data", "https://financialfilings.com/", "Structured data; specific line-item comparability checked manually where needed."], ["KIMS", "FY23\u2013FY26", "Historical financials", "FinancialFilings structured annual data", "https://financialfilings.com/", "Structured data; specific line-item comparability checked manually where needed."], ["Dr Agarwal's Health Care", "FY23\u2013FY26", "Historical financials", "FinancialFilings structured annual data", "https://financialfilings.com/", "Structured data; specific line-item comparability checked manually where needed."], ["Rainbow Children's", "FY23\u2013FY26", "Historical financials", "FinancialFilings structured annual data", "https://financialfilings.com/", "Structured data; specific line-item comparability checked manually where needed."], ["Park Medi World", "FY23\u2013FY26", "Historical financials", "FinancialFilings structured annual data", "https://financialfilings.com/", "Structured data; specific line-item comparability checked manually where needed."], ["Yatharth Hospital", "FY23\u2013FY26", "Historical financials", "FinancialFilings structured annual data", "https://financialfilings.com/", "Structured data; specific line-item comparability checked manually where needed."], ["HCG", "FY23\u2013FY26", "Historical financials", "FinancialFilings structured annual data", "https://financialfilings.com/", "Structured data; specific line-item comparability checked manually where needed."], ["Jupiter Life Line", "FY23\u2013FY26", "Historical financials", "FinancialFilings structured annual data", "https://financialfilings.com/", "Structured data; specific line-item comparability checked manually where needed."], ["Kovai Medical", "FY23\u2013FY26", "Historical financials", "FinancialFilings structured annual data", "https://financialfilings.com/", "Structured data; specific line-item comparability checked manually where needed."], ["Core hospital universe", "Sep 2026", "Market cap, P/E, latest quarter snapshot", "Screener Hospital Companies", "https://www.screener.in/market/IN06/IN0601/IN060103/IN060103001/", "Market data changes daily; snapshot only."], ["Kovai Medical", "FY26", "Revenue / EBITDA / PAT cross-check", "Public audited/company disclosures", "https://economictimes.indiatimes.com/kovai-medical-center-and-hospital-ltd/directorsreport/companyid-13465.cms", "Used because FinancialFilings API allowance was exhausted before this name."], ["Yatharth Hospital", "FY26", "Reported EBITDA / margin used to fill missing standardized EBITDA", "Q4 FY26 earnings call / filed materials", "https://quartermark.in/companies/YATHARTH/earnings-calls/Q4-FY26/transcript?view=deck", "FY26 EBITDA \u20b9292.1 cr; margin ~24.2%. Replaces missing standardized EBITDA only."], ["Global Health (Medanta)", "FY26", "Beds / occupancy / ARPOB", "Company disclosures / management discussion", "https://www.indiainfoline.com/company/global-health-ltd/management-discussions", "Bed definitions can differ between total capacity, operational and census beds."], ["Narayana Health", "FY26", "Bed capacity / typical occupancy", "Earnings call + hospital sector peer data", "https://quartermark.in/companies/NH/earnings-calls/Q4-FY26/transcript", "Management says occupancy typically operates around 60\u201365%; does not emphasize ARPOB as primary KPI."], ["KIMS", "FY26", "Beds / occupancy / ARPOB", "Management discussion / company data", "https://www.indiainfoline.com/company/krishna-institute-of-medical-sciences-ltd/management-discussions", "Group FY26 figures; regional mixes vary materially."], ["Dr Agarwal's Health Care", "FY26", "Facility network / mature facilities revenue", "Company FY26 results", "https://dragarwals.co.in/wp-content/uploads/2026/05/FY-2025-26-Results.pdf", "Eye-care chain is facility-based; bed economics are not directly comparable with multispecialty hospitals."], ["Rainbow Children's", "FY26", "Beds / occupancy / ARPOB", "FY26 annual-report summary", "https://scanx.trade/stock-market-news/companies/rainbow-childrens-medicare-provides-fy-2025-26-report-access/44857468", "Operational-bed definitions should be checked against company presentation when updating."], ["Park Medi World", "FY26", "Bed capacity / census beds / occupancy / ARPOB", "Company Q4 FY26 investor presentation", "https://www.parkhospital.in/storage/app/public/images/financial-quarterly-report/tgBRN7FhxWmut3C6F7GdUokdn0mNDfCornHkIclE.pdf", "Government payer mix and census-bed definitions matter for comparisons."], ["Yatharth Hospital", "FY26", "Bed capacity / occupancy / ARPOB", "Q4 FY26 earnings call", "https://quartermark.in/companies/YATHARTH/earnings-calls/Q4-FY26/transcript?view=deck", "Rapid acquisitions/new hospitals mean mature-vs-ramping split is especially important."], ["HCG", "9M/FY26", "Operational metrics / occupancy / ARPOB", "ICRA rating rationale", "https://www.icra.in/web/viewer.html?file=%2FRating%2FShowRationalReportFilePdf%2F141848", "Oncology-focused network; adjusted operating EBITDA can differ from standardized EBITDA."], ["Jupiter Life Line", "9M FY26", "Occupancy / ARPOB / inpatient volumes", "Institutional research using company data", "https://images.moneycontrol.com/static-mcnews/2026/02/20260204070806_Jupiter-Life-Line-Hospitals-0402026-prabhu.pdf", "9M metrics used as a proxy where full-year operating KPI disclosure was not captured."], ["Kovai Medical", "FY26", "Beds / occupancy / ARPOB", "Management discussion", "https://www.indiainfoline.com/company/kovai-medical-center-hospital-ltd/management-discussions", "Mature operator; useful bed-economics sanity benchmark."], ["Replacement-cost sanity", "2025\u201326", "Indicative capex per bed", "Yatharth management / Aster-QCIL management", "https://earningscalls.dev/transcripts/yatharth-hospital-and-trauma-care-services-limited_yatharth_earnings_call_transcript_2025-11-14", "Yatharth cited ~\u20b90.75 cr brownfield and ~\u20b91.0 cr greenfield per bed; other tertiary disclosures can reach ~\u20b91.5 cr+."], ["Hospital sector", "FY27", "Industry demand / occupancy / ARPOB / margin outlook", "ICRA", "https://www.icra.in/Research/ViewResearchReport/strong-demand-and-6-8-rise-in-arpob-to-support-healthy-revenue-growth-of-13-15-in-fy2027/7044", "Sector context only; company-level outcomes depend on ramp-up, case mix, payer mix and execution."]], "checks": [80, 70]};
+const CHECKS=META.checks;
+/* Valuation engine, mirrors the revised workbook.
+   UFCF = NOPAT + D&A - capex - dNWC; ND_t = ND_t-1 - (CFO - capex); year-end discounting.
+   Corrected bridge: DCF equity = DCF EV - FY26 opening net debt. basis:'legacy' reproduces the old FY31E bridge.
+   Relative EV/EBITDA keeps the workbook convention (FY28E EBITDA x multiple - FY28E net debt). */
+function runModel(c, o) {
+  o = Object.assign({dg:0, dm:0, dmode:'phase', cx:1, wacc:c.wacc, tg:c.tg, evx:c.evx, pe:c.pe, nwc:null, basis:'fy26'}, o||{});
+  const n = 5, rev = [c.rev[3]], out = {rev:[], ebitda:[], ufcf:[], nd:[], pat:[], capex:[], pv:[]};
+  let nd = c.nd[3] == null ? 0 : c.nd[3];
+  const nd0 = nd; let ev = 0;
+  for (let t = 1; t <= n; t++) {
+    const gr = c.g[t-1] + o.dg;
+    const rv = rev[t-1] * (1 + gr); rev.push(rv);
+    const shift = o.dmode === 'flat' ? o.dm : o.dm * t / n;
+    const mg = c.m[t-1] + shift;
+    const eb = rv * mg, da = rv * c.da, ebit = eb - da, nopat = ebit * (1 - c.tax);
+    const capInt = c.capex[3+t] / c.rev[3+t];
+    const cap = rv * capInt * o.cx;
+    const nw = Math.max(rv - rev[t-1], 0) * (o.nwc != null ? o.nwc : c.nwc);
+    const uf = nopat + da - cap - nw;
+    nd = nd - (eb * c.cfo - cap);
+    const pat = (ebit - c.int[3+t]) * (1 - c.tax);
+    const df = 1 / Math.pow(1 + o.wacc, t);
+    ev += uf * df;
+    out.rev.push(rv); out.ebitda.push(eb); out.ufcf.push(uf); out.nd.push(nd); out.pat.push(pat); out.capex.push(cap); out.pv.push(uf*df);
+  }
+  const tv = out.ufcf[4] * (1 + o.tg) / (o.wacc - o.tg);
+  const pvtv = tv / Math.pow(1 + o.wacc, n);
+  const dcfEV = ev + pvtv;
+  const dcf = dcfEV - (o.basis === 'legacy' ? out.nd[4] : nd0);
+  const eve = o.evx * out.ebitda[1] - out.nd[1];
+  const pe = o.pe * out.pat[1];
+  return Object.assign(out, {dcf, eve, pe, gap: dcf / c.mcap - 1, dcfEV, pvx: ev, pvtv, tvShare: pvtv / dcfEV, nd0});
+}
+
+/* ===== helpers ===== */
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const MIN='\u2212';
+const fmt=(n,d=0)=>(n==null||isNaN(n))?'\u2013':(n<0?MIN:'')+Math.abs(n).toLocaleString('en-IN',{minimumFractionDigits:d,maximumFractionDigits:d});
+const pc=(x,d=1)=>(x==null||isNaN(x))?'\u2013':(x<0?MIN:'')+Math.abs(x*100).toFixed(d)+'%';
+const sp=(x,d=1)=>(x==null||isNaN(x))?'\u2013':(x>=0?'+':MIN)+Math.abs(x*100).toFixed(d)+'%';
+const cr=n=>'\u20B9'+fmt(n)+' cr';
+const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const COS=['Medanta','Narayana','KIMS','DrAgarwal','Rainbow','ParkMedi','Yatharth','HCG','Jupiter','Kovai'];
+const LBL={Medanta:'Medanta',Narayana:'Narayana',KIMS:'KIMS',DrAgarwal:"Dr Agarwal's",Rainbow:'Rainbow',ParkMedi:'Park Medi',Yatharth:'Yatharth',HCG:'HCG',Jupiter:'Jupiter',Kovai:'Kovai'};
+const FULLNAME={Medanta:'Global Health (Medanta)',Narayana:'Narayana Health',KIMS:'KIMS',DrAgarwal:"Dr Agarwal's Health Care",Rainbow:"Rainbow Children's",ParkMedi:'Park Medi World',Yatharth:'Yatharth Hospital',HCG:'HCG',Jupiter:'Jupiter Life Line',Kovai:'Kovai Medical'};
+const cagr=c=>Math.pow(c.rev[8]/c.rev[3],1/5)-1;
+const med=a=>{const s=[...a].sort((x,y)=>x-y),n=s.length;return n%2?s[(n-1)/2]:(s[n-1>>1]+s[n>>1])/2};
+const cap1=s=>s.charAt(0)+s.slice(1).toLowerCase();
+const S={i:0,seen:new Set([0]),co:'Medanta',signal:'',metric:'cagr',sim:null,year:5,playing:false,
+  lens:{dcf:1,sotp:1,eve:1,pe:1,sc:1,p25:1},rmode:'pct',occT:75,revm:0,sotp:null,probs:{Bear:25,Bull:25},lab:null,legacy:false,mc:null};
+
+function setRange(el){const p=(el.value-el.min)/(el.max-el.min)*100;el.style.setProperty('--p',p+'%')}
+function countUps(root){
+  $$('[data-to]',root).forEach(el=>{
+    const to=+el.dataset.to,d=+(el.dataset.d||0),pre=el.dataset.pre||'',suf=el.dataset.suf||'';
+    const show=v=>el.textContent=pre+fmt(v,d)+suf;
+    if(RM){show(to);return}
+    const t0=performance.now(),dur=900;
+    (function f(t){const k=Math.min(1,(t-t0)/dur),e=1-Math.pow(1-k,3);show(to*e);if(k<1)requestAnimationFrame(f)})(t0);
+  });
+}
+function fillBars(root){
+  $$('[data-w]',root).forEach(el=>{el.style.transition='none';el.style.width='0%';void el.offsetWidth;el.style.transition=''});
+  requestAnimationFrame(()=>requestAnimationFrame(()=>$$('[data-w]',root).forEach(el=>el.style.width=el.dataset.w)));
+}
+function chipRow(items,cur,act,extra=''){
+  return `<div class="chips ${extra}" role="group">${items.map(([k,l])=>`<button class="chip" aria-pressed="${k===cur}" data-act="${act}" data-k="${k}">${l}</button>`).join('')}</div>`;
+}
+function coChips(act){return chipRow(COS.map(k=>[k,LBL[k]]),S.co,act)}
+function ctl(id,label,min,max,step,val,unit,dec=0){
+  return `<div class="ctl"><div class="ctl-h"><label for="${id}">${label}</label><output id="${id}-o" class="num">${(+val).toFixed(dec)}${unit}</output></div><input type="range" id="${id}" min="${min}" max="${max}" step="${step}" value="${val}" data-dec="${dec}" data-unit="${unit}"></div>`;
+}
+function bindRanges(root,fn){
+  $$('input[type=range]',root).forEach(el=>{setRange(el);el.addEventListener('input',()=>{
+    setRange(el);const o=$('#'+el.id+'-o',root);if(o)o.textContent=(+el.value).toFixed(+el.dataset.dec)+el.dataset.unit;fn(el);
+  })});
+}
+function syncRange(root,id,val,dec,unit){const el=$('#'+id,root);if(!el)return;el.value=val;setRange(el);const o=$('#'+id+'-o',root);if(o)o.textContent=(+val).toFixed(dec)+unit}
+function slideIdx(id){return SLIDES.findIndex(s=>s.id===id)}
+function goId(id){goTo(slideIdx(id))}
+function posPill(pos){return `<span class="pill ${pos.startsWith('Above')?'dark':''}">${pos}</span>`}
+function lensVals(c){return {dcf:c.vr.dcf,sotp:c.vr.sotp,eve:c.vr.eve,pe:c.vr.pe,sc:c.vr.sc,p25:c.vr.p25}}
+const LENS=[['dcf','Corrected DCF'],['sotp','Mature/ramping SOTP'],['eve','EV/EBITDA'],['pe','P/E'],['sc','Scenario expected'],['p25','Monte Carlo P25']];
+const LENSS={dcf:'Corrected DCF',sotp:'SOTP',eve:'EV/EBITDA',pe:'P/E',sc:'Scenario',p25:'Monte Carlo P25'};
+function rangeOf(c){
+  const v=lensVals(c),on=LENS.filter(([k])=>S.lens[k]).map(([k])=>v[k]);
+  const lo=Math.min(...on),hi=Math.max(...on),ce=med(on);
+  return {lo,hi,ce,pos:c.mcap>hi?'Above model range':c.mcap<lo?'Below model range':'Within model range'};
+}
+
+/* ===== revised company copy ===== */
+const T={
+ Medanta:{t:'Large greenfield pipeline; mature assets must fund the next growth phase.',q:['Can new capacity reach acceptable occupancy without a prolonged margin drag?','Can ARPOB and case mix improve without sacrificing volumes?','Does expansion preserve ROIC after remaining capex and ramp losses?']},
+ Narayana:{t:'Acquisition and consolidation effects make the quality of growth as important as headline growth.',q:['How much growth is organic versus acquired or consolidated?','Can overseas operations approach the returns of the Indian network?','Does leverage decline as expansion assets mature?']},
+ KIMS:{t:'Aggressive bed additions create the largest mismatch between explicit cash flow and terminal value.',q:['Can newly commissioned beds ramp without permanently diluting group margin?','Does capex and debt peak before mature cash flow accelerates?','Can FY31 margin recovery be achieved through utilisation rather than only pricing?']},
+ DrAgarwal:{t:'Specialty eye-care platform; facility growth, network economics and cash conversion drive value.',q:['Can high margins survive rapid network expansion?','Are mature facilities generating enough cash to fund new centres?','Is growth duration long enough to support the premium market valuation?']},
+ Rainbow:{t:'Pediatric and women-care specialisation supports strong economics; the key issue is new-unit ramp.',q:['Does specialisation continue to support superior unit economics?','Can mature hospitals protect group margin while new hospitals scale?','Can growth remain capital-efficient?']},
+ ParkMedi:{t:'North India cluster strategy can improve density economics if occupancy and payer mix develop as planned.',q:['Does cluster density improve referrals and operating leverage?','Can new capacity ramp without excessive leverage?','Is margin improvement driven by utilisation and mix rather than aggressive pricing?']},
+ Yatharth:{t:'Rapid network expansion makes mature-versus-new separation essential.',q:['Do new hospitals move from startup losses toward mature margins on schedule?','Can high occupancy at established units be replicated across acquired and new assets?','Does consolidated margin converge toward mature-hospital economics?']},
+ HCG:{t:'Oncology specialisation offers structural demand, but reported versus adjusted EBITDA and leverage matter.',q:['Can reported and adjusted EBITDA be reconciled cleanly?','Does oncology-led growth translate into stronger consolidated margin?','Does leverage decline enough for equity holders to capture operating improvement?']},
+ Jupiter:{t:'Strong existing economics and a net-cash position support expansion, but replication matters.',q:['Can mature margins survive the next capex cycle?','Can expansion be largely self-funded?','Do new facilities reproduce current cluster economics?']},
+ Kovai:{t:'Mature regional economics and capital efficiency make this the cleanest terminal-value sanity benchmark in the group.',q:['Can mature regional economics remain durable?','Does lower growth remain acceptable because cash conversion and ROCE stay strong?','Does incremental expansion preserve rather than dilute returns?']}
+};
+function interp(k){
+  const c=D[k],v=c.vr,r=rangeOf(c);
+  if(r.pos==='Above model range')return `Current market capitalisation sits above the broad model range of \u20B9${fmt(r.lo)}\u2013\u20B9${fmt(r.hi)} crore. The reverse-operating test is more informative than the point DCF: current EV implies an EBITDA margin of about ${pc(c.ro.mm)} versus our FY31 base of ${pc(c.m[4])}. The main question is therefore whether faster utilisation, higher ARPOB and case mix, better capital efficiency or a lower required return can close that expectation gap.`;
+  if(r.pos==='Below model range')return `Current market capitalisation sits below the model range of \u20B9${fmt(r.lo)}\u2013\u20B9${fmt(r.hi)} crore for the lenses currently switched on. That is a statement about these assumptions, not a recommendation.`;
+  return `Current market capitalisation sits within the broad model range of \u20B9${fmt(r.lo)}\u2013\u20B9${fmt(r.hi)} crore. This does not make the stock \u2018fairly valued\u2019 in a precise sense: terminal value still contributes ${pc(c.ta.tp)} of DCF EV, so the correct conclusion is that several plausible operating paths overlap the current market value.`;
+}
+function sanity(k){
+  const c=D[k];
+  if(k==='DrAgarwal')return 'The network is not directly comparable on inpatient bed metrics, so facility maturity, revenue per centre, cash conversion and new-centre economics should carry more weight.';
+  return `The captured capacity data show occupancy around ${pc(c.be.occ)}. The workbook also includes a 75% occupancy headroom stress test, but this is a capacity sensitivity rather than a forecast or target.`;
+}
+
+const SLIDES=[];
+
+/* ===== 1 cover ===== */
+SLIDES.push({id:'cover',title:'Cover',
+html:()=>`<div class="wrap"><div class="cover-grid">
+<div class="stack-lg">
+ <div class="row"><span class="pill dark">Initiating coverage, revised</span><span class="pill">1 October 2026</span></div>
+ <h1 class="d-xl">India hospitals: what must be true for today\u2019s price?</h1>
+ <p class="lead">Ten listed hospital platforms, modelled from FY23A to FY31E. The operating models are unchanged except where better FY26 data was available. The valuation layer is rebuilt as a range and a map of the operating outcomes that today\u2019s prices require.</p>
+ <div><p class="cap" style="margin-bottom:8px">What changed. Tap one to jump to it.</p>
+  <div class="chips wrapit" id="chg">${[['DCF bridge corrected','dcf'],['Terminal dependence exposed','dcf'],['Reverse expectations added','reverse'],['Mature and ramping SOTP','sotp'],['Scenario probabilities explicit','scenario'],['Monte Carlo ranges','mc']].map(([l,id])=>`<button class="chip" data-goid="${id}">${l}</button>`).join('')}</div></div>
+ <div class="row"><button class="btn btn-secondary" data-goid="range">See the valuation range</button><button class="btn btn-ghost" data-act="index">All slides</button></div>
+</div>
+<div class="card white" style="border-radius:32px;padding:24px">
+ <div class="row" style="justify-content:space-between;margin-bottom:16px"><span class="h-md">Capital first, patients later</span><button class="chip" data-act="replay" style="height:36px">Replay</button></div>
+ <div class="beds" id="beds" role="img" aria-label="Illustrative grid of hospital beds filling as occupancy ramps up"></div>
+ <div class="grid g3" style="margin-top:16px;gap:8px">
+  <div class="stat"><span class="v num" id="cv-y">FY26</span><span class="l">Year</span></div>
+  <div class="stat"><span class="v num" id="cv-b">60</span><span class="l">Beds open (of 120)</span></div>
+  <div class="stat"><span class="v num" id="cv-o">55%</span><span class="l">Occupancy</span></div>
+ </div>
+ <div class="chain" id="chain" style="margin-top:16px">${['Capacity','Occupancy','ARPOB','Margin','Cash conversion','ROIC','Valuation'].map(x=>`<span>${x}</span>`).join('')}</div>
+ <p class="cap" style="margin-top:12px">Illustrative only. New beds open first, so fixed costs arrive before patients do. Occupancy then builds over several years.</p>
+</div></div></div>`,
+init(root){
+  const beds=$('#beds',root);beds.innerHTML=Array.from({length:120},()=>'<i class="bed closed"></i>').join('');
+  const yrs=['FY26','FY27','FY28','FY29','FY30','FY31'],open=[60,72,84,96,108,120],occ=[.55,.6,.66,.71,.75,.78];
+  const dots=$$('.bed',beds),chain=$$('#chain span',root);let step=0,timer=null;
+  const draw=s=>{
+    dots.forEach((d,i)=>{const o=i<open[s];d.className='bed '+(o?(i<Math.round(open[s]*occ[s])?'occ':'open'):'closed')});
+    $('#cv-y',root).textContent=yrs[s];$('#cv-b',root).textContent=open[s];$('#cv-o',root).textContent=Math.round(occ[s]*100)+'%';
+    chain.forEach((c,i)=>c.classList.toggle('lit',i<=Math.min(6,Math.round(s*6/5))));
+  };
+  this.start=()=>{clearInterval(timer);step=0;draw(0);if(RM){draw(5);return}timer=setInterval(()=>{step++;if(step>5){clearInterval(timer);return}draw(step)},1100)};
+  this.stop=()=>clearInterval(timer);draw(0);
+},enter(){this.start()},leave(){this.stop()}});
+
+/* ===== 2 valuation range ===== */
+SLIDES.push({id:'range',title:'Valuation range',
+html:()=>{
+  const n=COS.filter(k=>D[k].vr.pos.startsWith('Above')).length;
+  return `<div class="wrap">
+<div class="head"><h2 class="d-lg">${n} prices sit above every model reference. ${COS.length-n} sit inside the range.</h2>
+<p class="lead">No single model is treated as the answer. Low, central and high references come from six lenses: corrected DCF, mature/ramping SOTP, EV/EBITDA, P/E, probability-weighted scenarios and the Monte Carlo distribution.</p></div>
+<div class="row" style="justify-content:space-between;margin-bottom:8px"><span class="h-md">Which lenses count? Switch any off.</span>
+ <div class="seg" role="group"><button aria-pressed="true" data-act="rmode" data-k="pct">% of market cap</button><button aria-pressed="false" data-act="rmode" data-k="abs">\u20B9 crore</button></div></div>
+${chipRow(LENS.map(([k,l])=>[k,l]),'','lens','wrapit')}
+<div class="two-col" style="margin-top:16px">
+ <div class="feature"><div class="row" style="justify-content:space-between;margin-bottom:8px"><span class="sm" id="rg-sub"></span><span class="legend"><span><i style="background:var(--stone)"></i>Low to high</span><span><i style="background:var(--ink);border-radius:2px;width:4px;height:12px"></i>Central</span></span></div>
+  <div class="rg" id="rg"></div><div class="rg-axis" id="rg-axis"></div></div>
+ <div class="feature soft" id="rg-detail"></div>
+</div>
+<div class="note" style="margin-top:16px"><b>How to read the range.</b> A market value above the model range does not mean the stock must fall. It means the market is underwriting stronger economics than most of our explicit scenarios. A market value inside the range is not a recommendation either. The point is to expose the operating assumptions behind the price.</div>
+</div>`},
+init(root){
+  const box=$('#rg',root);
+  box.innerHTML=COS.map(k=>`<button class="rg-row" data-act="rrow" data-k="${k}"><span class="n">${LBL[k]}</span><div class="rg-track"><div class="rg-mk"></div><div class="rg-bar"></div><div class="rg-tick"></div></div><span class="v num"></span></button>`).join('');
+  this.paint=()=>{
+    const abs=S.rmode==='abs',rows=COS.map(k=>{const c=D[k],r=rangeOf(c);return {k,c,r}});
+    const mx=abs?Math.max(...rows.map(x=>Math.max(x.r.hi,x.c.mcap))):2;
+    const order=[...rows].sort((a,b)=>(a.r.ce/a.c.mcap)-(b.r.ce/b.c.mcap));
+    $$('.rg-row',box).forEach(row=>{
+      const x=rows.find(q=>q.k===row.dataset.k),{c,r}=x,sc=abs?1:1/c.mcap;
+      row.style.order=order.findIndex(q=>q.k===x.k);row.classList.toggle('sel',x.k===S.co);
+      const pos=v=>(v*sc/mx*100)+'%';
+      $('.rg-bar',row).style.left=pos(r.lo);$('.rg-bar',row).style.width=((r.hi-r.lo)*sc/mx*100)+'%';
+      $('.rg-tick',row).style.left=pos(r.ce);
+      const mk=$('.rg-mk',row);mk.style.left=abs?(c.mcap/mx*100)+'%':(100/mx)+'%';
+      $('.v',row).textContent=abs?fmt(r.ce):pc(r.ce/c.mcap,0);
+    });
+    $('#rg-sub',root).textContent=abs?'Equity value, \u20B9 crore. The dashed line is each company\u2019s market cap.':'Model value as a share of market cap. The dashed line is 100%, today\u2019s market cap.';
+    $('#rg-axis',root).innerHTML=abs?'<span>0</span><span>\u20B9'+fmt(mx/2)+' cr</span><span>\u20B9'+fmt(mx)+' cr</span>':'<span>0%</span><span>100%</span><span>200%</span>';
+    $$('[data-act=lens]',root).forEach(b=>b.setAttribute('aria-pressed',!!S.lens[b.dataset.k]));
+    $$('[data-act=rmode]',root).forEach(b=>b.setAttribute('aria-pressed',b.dataset.k===S.rmode));
+    // detail
+    const k=S.co,c=D[k],r=rangeOf(c),v=lensVals(c),items=[['Market cap',c.mcap,'mk'],...LENS.map(([q])=>[LENSS[q],v[q],q])];
+    const mxv=Math.max(...items.map(x=>x[1]));
+    $('#rg-detail',root).innerHTML=`<div class="row" style="justify-content:space-between"><h3 class="h-lg">${FULLNAME[k]}</h3>${posPill(r.pos)}</div>
+     <div class="grid g3" style="margin:12px 0;gap:8px"><div class="stat" style="background:var(--canvas);padding:12px"><span class="v" style="font-size:20px">${fmt(r.lo)}</span><span class="l">Low</span></div><div class="stat" style="background:var(--canvas);padding:12px"><span class="v" style="font-size:20px">${fmt(r.ce)}</span><span class="l">Central</span></div><div class="stat" style="background:var(--canvas);padding:12px"><span class="v" style="font-size:20px">${fmt(r.hi)}</span><span class="l">High</span></div></div>
+     <div class="bars onsoft" style="display:flex;flex-direction:column">${items.map(([l,val,q])=>`<div class="bar-row" style="grid-template-columns:132px 1fr 64px;padding:0;opacity:${q==='mk'||S.lens[q]?1:.35}"><span class="n" style="font-size:13px">${l}</span><div class="bar-track"><div class="bar-fill ${q==='mk'?'':'lite'}" style="width:${val/mxv*100}%"></div></div><span class="v num" style="font-size:13px">${fmt(val)}</span></div>`).join('')}</div>
+     <p class="cap" style="margin:8px 0 12px">\u20B9 crore equity value. Low is the lowest lens, high the highest, central the median of the lenses switched on.</p>
+     <p class="p">${interp(k)}</p>
+     <div class="row" style="margin-top:12px"><button class="btn btn-secondary" data-goid="reverse">What must be true?</button><button class="btn btn-ghost" data-act="rco">Company deep dive</button></div>`;
+  };
+  this.paint();
+},
+enter(root){$$('.rg-bar',root).forEach(b=>{const w=b.style.width;b.style.transition='none';b.style.width='0%';void b.offsetWidth;b.style.transition='';requestAnimationFrame(()=>requestAnimationFrame(()=>b.style.width=w))})},
+on(act,k,root){
+  if(act==='lens'){const on=Object.values(S.lens).filter(Boolean).length;if(S.lens[k]&&on===1)return;S.lens[k]=S.lens[k]?0:1;this.paint()}
+  if(act==='rmode'){S.rmode=k;this.paint()}
+  if(act==='rrow'){S.co=k;this.paint()}
+  if(act==='rco'){goId('company')}
+}});
+
+/* ===== 3 why the DCF was revised ===== */
+const WHY=[
+ ['Terminal concentration','Every company has more than 75% of enterprise value in the terminal period. KIMS is the most extreme at about 98%.'],
+ ['WACC sensitivity','A small change in discount rate moves present value materially, because long-duration terminal cash flows dominate.'],
+ ['Operating-ramp uncertainty','Commissioning dates, occupancy curves, specialty mix and capex timing are lumpy. A smooth CAGR hides this.'],
+ ['Capital consistency','Sustainable terminal growth requires reinvestment. The model now reports implied terminal reinvestment and ROIC rather than assuming growth is free.'],
+ ['Equity bridge','FY26 opening net debt or cash is now used, so forecast cash generation is not counted twice.']
+];
+SLIDES.push({id:'dcf',title:'Why the DCF was revised',
+html:()=>`<div class="wrap">
+<div class="head"><h2 class="d-lg">The DCF stays. It stops being a price target.</h2>
+<p class="lead">DCF is still mathematically coherent, but hospital valuation is vulnerable to false precision. Most of the value arrives after the forecast ends, and hospitals can burn cash for years before occupancy and case mix mature.</p></div>
+<div class="two-col">
+ <div class="stack">
+  <div class="feature"><h3 class="h-lg" style="margin-bottom:4px">Five reasons for the revision</h3><p class="sm" style="margin-bottom:12px">Tap to expand.</p>
+   <div class="stack" style="--gap:8px">${WHY.map(([a,b],i)=>`<button class="tile ${i===4?'open':''}" data-act="tile" style="margin-top:8px"><span class="h-md">${a}<span aria-hidden="true">${i===4?MIN:'+'}</span></span><span class="more">${b}</span></button>`).join('')}</div></div>
+  <div class="feature"><h3 class="h-md" style="margin-bottom:8px">Move the discount rate</h3>
+   ${ctl('d-w','WACC',8,14,0.25,10.5,'%',2)}
+   <div class="grid g3" style="margin-top:8px" id="d-out"></div>
+   <p class="cap" style="margin-top:8px">Corrected DCF equity value for the company selected on the right, with terminal growth held at the base case.</p></div>
+ </div>
+ <div class="stack">
+  <div class="feature soft"><div class="row" style="justify-content:space-between"><h3 class="h-lg" id="wf-t"></h3><span class="pill dark" id="wf-flag"></span></div>
+   <p class="sm" style="margin:4px 0 12px">Equity value bridge, \u20B9 crore. The bridge fix removes cash that the DCF had already counted.</p>
+   <div class="bars onsoft" id="wf" style="display:flex;flex-direction:column"></div></div>
+  <div class="feature"><h3 class="h-md" style="margin-bottom:8px">Terminal share of DCF enterprise value</h3>
+   <div class="bars" id="tbars" style="display:flex;flex-direction:column"></div>
+   <div class="legend" style="margin-top:8px"><span><i style="background:var(--stone)"></i>Explicit FY27\u2013FY31 cash flow</span><span><i style="background:var(--ink)"></i>Terminal value</span></div></div>
+ </div></div>
+<h3 class="h-lg" style="margin:32px 0 12px">Terminal audit</h3>
+<div class="tablewrap noswipe"><table><thead><tr><th>Company</th><th>Corrected DCF</th><th>Legacy DCF</th><th>Bridge inflation</th><th>Terminal %</th><th>Terminal reinvestment</th><th>Implied terminal ROIC</th><th>Flag</th></tr></thead><tbody>
+${COS.map(k=>{const t=D[k].ta;return `<tr data-k="${k}"><td>${FULLNAME[k]}</td><td>${fmt(t.dcf,1)}</td><td>${fmt(t.leg,1)}</td><td>${fmt(t.infl,1)}</td><td>${pc(t.tp)}</td><td>${pc(t.reinv)}</td><td>${pc(t.roic,0)}</td><td>${cap1(t.flag)}</td></tr>`}).join('')}</tbody></table></div>
+<p class="cap" style="margin-top:8px">\u20B9 crore. Implied terminal ROIC is terminal growth divided by terminal reinvestment. Values far above a plausible return on capital mean the terminal growth rate is being funded with very little reinvestment.</p>
+</div>`,
+init(root){
+  const tb=$('#tbars',root);
+  tb.innerHTML=COS.map(k=>`<button class="bar-row" data-act="dco" data-k="${k}" style="grid-template-columns:104px 1fr 56px"><span class="n">${LBL[k]}</span><div class="bar-track" style="display:flex"><div class="bar-fill" style="position:relative;background:var(--stone);border-radius:9999px 0 0 9999px;width:0" data-w="${(1-D[k].ta.tp)*100}%"></div><div class="bar-fill" style="position:relative;background:var(--ink);border-radius:0 9999px 9999px 0;width:0" data-w="${D[k].ta.tp*100}%"></div></div><span class="v num">${pc(D[k].ta.tp,0)}</span></button>`).join('');
+  bindRanges(root,()=>this.paintWacc());
+  this.paint=()=>{
+    const k=S.co,c=D[k],t=c.ta;
+    $$('.bar-row',tb).forEach(r=>r.classList.toggle('sel',r.dataset.k===k));
+    $$('tbody tr',root).forEach(r=>r.classList.toggle('sel',r.dataset.k===k));
+    $('#wf-t',root).textContent=FULLNAME[k];$('#wf-flag',root).textContent=cap1(t.flag)+' terminal dependence';
+    const mx=Math.max(t.leg,c.mcap,t.dcf);
+    const rows=[['Legacy DCF',t.leg,'ink'],['Bridge inflation',t.infl,'lite'],['Corrected DCF',t.dcf,'ink'],['Market cap',c.mcap,'lite']];
+    $('#wf',root).innerHTML=rows.map(([l,v,s],i)=>`<div class="bar-row" style="grid-template-columns:118px 1fr 72px;padding:0"><span class="n" style="font-size:13px">${l}</span><div class="bar-track"><div class="bar-fill ${s==='lite'?'lite':''}" ${i===1?'style="background:var(--err)"':''} data-w="${v/mx*100}%"></div></div><span class="v num" style="font-size:13px">${i===1?MIN:''}${fmt(v)}</span></div>`).join('');
+    fillBars($('#wf',root));
+    syncRange(root,'d-w',c.wacc*100,2,'%');
+    this.paintWacc();
+  };
+  this.paintWacc=()=>{
+    const k=S.co,c=D[k],w=+$('#d-w',root).value/100;
+    const tg=Math.min(c.tg,w-.015),m=runModel(c,{wacc:w,tg}),b=runModel(c);
+    $('#d-out',root).innerHTML=[[cr(m.dcf),'Corrected DCF equity'],[sp(m.dcf/b.dcf-1),'vs base case'],[pc(m.tvShare,0),'Terminal share of EV']].map(([v,l])=>`<div class="stat" style="padding:12px"><span class="v num" style="font-size:20px">${v}</span><span class="l">${l}</span></div>`).join('');
+  };
+  this.paint();
+},
+enter(root){this.paint();fillBars($('#tbars',root))},
+on(act,k,root,el){
+  if(act==='dco'){S.co=k;this.paint()}
+  if(act==='tile'){const o=el.classList.toggle('open');el.querySelector('.h-md span').textContent=o?MIN:'+'}
+}});
+
+/* ===== 4 operating framework and bed economics ===== */
+const FRAME=[['Operational capacity','Installed beds are not the same as staffed, revenue-producing census beds.'],['Occupancy','The primary utilisation variable and the cleanest indicator of ramp progress.'],['ARPOB and case mix','Reflect pricing, specialty complexity, payer mix and procedure intensity.'],['Mature versus ramping assets','Consolidated margins can fall even while long-run value rises, if new units are being absorbed.'],['Cash conversion and ROIC','Determine whether growth is self-funding or depends on repeated external capital.']];
+SLIDES.push({id:'frame',title:'Operating framework',
+html:()=>`<div class="wrap">
+<div class="head"><h2 class="d-lg">Capital is committed first. Utilisation decides the return.</h2>
+<p class="lead">Fixed costs arrive before utilisation. Occupancy then drives operating leverage, ARPOB and ALOS set revenue quality, and only after the ramp does ROIC show whether growth created value.</p></div>
+<div class="grid g2"><div class="stack">${FRAME.map(([a,b],i)=>`<button class="tile ${i===1?'open':''}" data-act="tile"><span class="h-md">${a}<span aria-hidden="true">${i===1?MIN:'+'}</span></span><span class="more">${b}</span></button>`).join('')}</div>
+ <div class="feature"><h3 class="h-lg">EV per operating bed</h3><p class="sm" style="margin:4px 0 12px">Current enterprise value divided by operational or census beds. The shaded band is the indicative replacement cost of \u20B90.75\u20131.5 crore per bed.</p><div class="evb" id="evb"></div>
+  <p class="cap" style="margin-top:12px">Dr Agarwal\u2019s is a facility network (\u20B9${fmt(D.DrAgarwal.be.evu,1)} cr per facility) and is left out. Replacement cost does not capture brand, doctor networks, specialty capabilities or local market power.</p></div></div>
+<div class="feature soft" style="margin-top:32px"><div class="row" style="justify-content:space-between;align-items:flex-start;gap:16px"><div><h3 class="h-lg">Capacity headroom stress test</h3><p class="sm" style="margin-top:4px;max-width:60ch">What happens to inpatient revenue and EBITDA if occupancy moved to a chosen level at today\u2019s ARPOB and FY26 margin. A capacity sensitivity, not a forecast or a target.</p></div></div>
+ <div style="max-width:420px;margin-top:8px">${ctl('o-t','Occupancy level to test',55,90,1,75,'%')}</div>
+ <div class="bars onsoft" id="occb" style="display:flex;flex-direction:column;margin-top:8px"></div></div>
+<h3 class="h-lg" style="margin:32px 0 12px">Indicative bed-economics snapshot</h3>
+<div class="tablewrap noswipe"><table><thead><tr><th>Company</th><th>Unit</th><th>Operational units</th><th>Occupancy</th><th>ARPOB (\u20B9/day)</th><th>Revenue per unit (\u20B9 cr)</th><th>EV per unit (\u20B9 cr)</th><th>EV / high replacement</th></tr></thead><tbody>
+${COS.map(k=>{const b=D[k].be;return `<tr><td>${FULLNAME[k]}</td><td>${b.unit}</td><td>${fmt(b.op)}</td><td>${b.occ?pc(b.occ):'\u2013'}</td><td>${b.arpob?fmt(b.arpob):'\u2013'}</td><td>${fmt(b.rpu,2)}</td><td>${fmt(b.evu,1)}</td><td>${b.evhi?fmt(b.evhi,1)+'x':'\u2013'}</td></tr>`}).join('')}</tbody></table></div>
+<p class="cap" style="margin-top:8px">Bed and facility definitions are not perfectly comparable. Dr Agarwal\u2019s is a facility-led eye-care network, and HCG has oncology-specific economics. This is a sanity-check layer, not a ranking mechanism. Metric periods vary: Jupiter is 9M FY26 and HCG a 9M/FY26 proxy.</p>
+</div>`,
+init(root){
+  const evb=$('#evb',root),bedCos=COS.filter(k=>D[k].be.unit==='Beds').sort((a,b)=>D[b].be.evu-D[a].be.evu),mx=14;
+  evb.innerHTML=bedCos.map(k=>`<div class="evb-row"><span class="n">${LBL[k]}</span><div class="evb-track"><div class="evb-fill" data-w="${D[k].be.evu/mx*100}%"></div><div class="evb-band" style="left:${.75/mx*100}%;width:${.75/mx*100}%"></div></div><span class="v num">${fmt(D[k].be.evu,1)}</span></div>`).join('');
+  this.paint=()=>{
+    const t=S.occT/100,cs=COS.filter(k=>D[k].be.occ&&D[k].be.arpob);
+    const rows=cs.map(k=>{const c=D[k],b=c.be,proxy=b.op*b.occ*365*b.arpob/1e7,rh=proxy*(t/b.occ-1),eh=rh*(c.ebitda[3]/c.rev[3]);return {k,rh,eh}});
+    const mx=Math.max(...rows.map(r=>Math.abs(r.rh)),1);
+    $('#occb',root).innerHTML=rows.map(r=>`<div class="bar-row" style="grid-template-columns:104px 1fr 210px;padding:0"><span class="n">${LBL[r.k]}</span><div class="div-track"><div class="div-fill ${r.rh<0?'neg':'pos'}" style="${r.rh<0?'':''}width:${Math.abs(r.rh)/mx*50}%;background:${r.rh<0?'var(--mute)':'var(--ink)'}"></div></div><span class="v num" style="font-size:12px;white-space:nowrap">${r.rh<0?MIN:'+'}${fmt(Math.abs(r.rh))} rev, ${r.eh<0?MIN:'+'}${fmt(Math.abs(r.eh))} EBITDA</span></div>`).join('')+`<p class="cap" style="margin-top:8px">\u20B9 crore a year. Dr Agarwal\u2019s and Narayana have no ARPOB in the dataset, so they are not shown.</p>`;
+  };
+  bindRanges(root,el=>{S.occT=+el.value;this.paint()});this.paint();
+},
+enter(root){fillBars(root)},
+on(act,k,root,el){if(act==='tile'){const o=el.classList.toggle('open');el.querySelector('.h-md span').textContent=o?MIN:'+'}}});
+
+/* ===== 5 ramp simulator ===== */
+const SIM_DEF={beds:400,cpb:1.6,occ:70,ramp:5,arpob:55,ag:6,alos:3.6,op:20,varc:45,mar:26,delay:0};
+S.sim={...SIM_DEF};
+const PRESETS={base:['Base hospital',{}],fast:['Fast ramp',{ramp:3,occ:75}],slow:['Slow ramp, 1-year delay',{ramp:7,delay:1}],spec:['Specialty, high ARPOB',{beds:250,cpb:2,arpob:75,occ:62,mar:30}]};
+function simHosp(p,delay){
+  const occ=p.occ/100,op=p.op/100,vc=p.varc/100,m=p.mar/100,ag=p.ag/100;
+  const revM=p.beds*occ*365*p.arpob*(1+op)/1e4,fixed0=revM*(1-vc-m),capex=p.beds*p.cpb;
+  const rows=[];let cum=-capex,be=null,pb=null,peak=-capex;
+  for(let y=1;y<=10;y++){
+    const ye=y-delay;
+    const o=ye<1?occ*.25:occ*(.3+.7*Math.min(1,(ye-1)/Math.max(1,p.ramp-1)));
+    const arp=p.arpob*Math.pow(1+ag,y-1);
+    const rev=p.beds*o*365*arp*(1+op)/1e4,fx=fixed0*Math.pow(1.05,y-1),eb=rev*(1-vc)-fx;
+    cum+=eb;peak=Math.min(peak,cum);
+    if(be==null&&eb>0)be=y;if(pb==null&&cum>=0)pb=y;
+    rows.push({y,o,rev,eb,mg:eb/rev,disc:p.beds*o*365/p.alos,obd:p.beds*o*365,cum,roic:(eb-capex/20)*.75/capex});
+  }
+  const my=Math.min(10,delay+p.ramp);
+  return {rows,capex,be,pb,peak:-peak,roic:rows[my-1].roic,my};
+}
+function bindSim(root,slide){
+  $$('input[type=range]',root).forEach(el=>{setRange(el);el.addEventListener('input',()=>{
+    setRange(el);
+    if(el.id==='yr'){S.year=+el.value;slide.paint(false);return}
+    $('#'+el.id+'-o',root).textContent=(+el.value).toFixed(+el.dataset.dec)+el.dataset.unit;
+    S.sim[el.id.slice(2)]=+el.value;slide.paint(false);
+  })});
+}
+SLIDES.push({id:'lifecycle',title:'Hospital ramp simulator',
+html:()=>{const p=S.sim;return `<div class="wrap">
+<div class="head"><h2 class="d-lg">Build a hospital. Watch the ramp decide the returns.</h2>
+<p class="lead">Every hospital carries fixed costs from day one, but occupancy takes years to build. Change the inputs to see when EBITDA turns positive and when the cash comes back.</p>
+<p class="cap">Illustrative hospital, not any listed company. The report does not assume bed-level data for individual names.</p></div>
+${chipRow(Object.entries(PRESETS).map(([k,v])=>[k,v[0]]),'','preset')}
+<div class="sticky-strip" id="sim-strip"></div>
+<div class="two-col wide-l" style="margin-top:16px">
+<div class="stack">
+ <div class="feature"><div class="row" style="justify-content:space-between;margin-bottom:8px"><span class="h-md">Revenue and EBITDA by year (\u20B9 cr)</span><span class="legend"><span><i style="background:var(--stone)"></i>Revenue</span><span><i style="background:var(--ink)"></i>EBITDA</span></span></div><div id="chA"></div></div>
+ <div class="feature"><div class="row" style="justify-content:space-between;margin-bottom:8px"><span class="h-md">Cumulative cash after capex (\u20B9 cr)</span><span class="legend" id="lgB"></span></div><div id="chB"></div></div>
+ <div class="feature"><div class="row" style="justify-content:space-between;align-items:center;margin-bottom:12px"><span class="h-md">Year <span id="yr-l" class="num">5</span> of the ramp</span><button class="btn btn-secondary" id="play" data-act="play">Play the ramp</button></div>
+  <input type="range" id="yr" min="1" max="10" step="1" value="${S.year}" aria-label="Year of the ramp">
+  <div class="beds" id="sbeds" style="grid-template-columns:repeat(20,1fr);gap:4px;margin:12px 0"></div>
+  <div class="grid g4" id="yr-stats"></div></div>
+</div>
+<div class="stack">
+ <div class="grid" id="sim-out" style="grid-template-columns:1fr 1fr"></div>
+ <div class="feature"><h3 class="h-md" style="margin-bottom:8px">Inputs</h3>
+  ${ctl('s-beds','Operational beds',100,800,25,p.beds,'')}
+  ${ctl('s-cpb','Capex per bed (\u20B9 cr)',0.8,2.4,0.1,p.cpb,'',1)}
+  ${ctl('s-occ','Mature occupancy',55,85,1,p.occ,'%')}
+  ${ctl('s-ramp','Years to mature',3,8,1,p.ramp,' yrs')}
+  ${ctl('s-delay','Commissioning delay',0,3,1,p.delay,' yrs')}
+  ${ctl('s-arpob','ARPOB (\u20B9 000 per bed-day)',35,90,1,p.arpob,'')}
+  ${ctl('s-ag','ARPOB growth a year',0,9,0.5,p.ag,'%',1)}
+  ${ctl('s-alos','ALOS (days)',2.8,5,0.1,p.alos,'',1)}
+  ${ctl('s-op','Outpatient and other, % of inpatient revenue',0,40,1,p.op,'%')}
+  ${ctl('s-varc','Variable costs, % of revenue',35,55,1,p.varc,'%')}
+  ${ctl('s-mar','Mature EBITDA margin',18,35,1,p.mar,'%')}
+  <p class="cap" style="margin-top:8px">Fixed costs are set so the hospital earns the mature margin at mature occupancy, then inflate 5% a year. ROIC is post-tax at 25% with straight-line depreciation over 20 years.</p>
+ </div></div></div></div>`},
+init(root){bindSim(root,this);this.paint(true)},
+paint(anim){
+  const root=$('#slide-lifecycle'),p=S.sim,r=simHosp(p,p.delay),g=simHosp(p,0);this.r=r;
+  const W=Math.max(300,Math.min(720,($('#chA',root).clientWidth||600))),H=190,pl=44,pr=8,pt=10,pb=26,iw=W-pl-pr,ih=H-pt-pb;
+  const xs=i=>pl+iw*(i+.5)/10,bw=iw/10*.62;
+  const maxA=Math.max(...r.rows.map(x=>x.rev),1),minA=Math.min(0,...r.rows.map(x=>x.eb)),rngA=maxA-minA;
+  const ya=v=>pt+ih*(1-(v-minA)/rngA);
+  let a=`<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Revenue and EBITDA by year">`;
+  [0,.5,1].forEach(f=>{const v=minA+rngA*f;a+=`<line x1="${pl}" x2="${W-pr}" y1="${ya(v)}" y2="${ya(v)}" stroke="var(--hair-soft)"/><text x="${pl-6}" y="${ya(v)+4}" text-anchor="end" font-size="11" fill="var(--mute)">${fmt(v)}</text>`});
+  a+=`<line x1="${pl}" x2="${W-pr}" y1="${ya(0)}" y2="${ya(0)}" stroke="var(--ash)"/>`;
+  r.rows.forEach((x,i)=>{a+=`<rect x="${xs(i)-bw/2}" y="${pt}" width="${bw}" height="${ih}" fill="${S.year-1===i?'var(--card)':'none'}" rx="8"/>`});
+  r.rows.forEach((x,i)=>{
+    const cls=anim?'class="gr"':'';
+    a+=`<rect ${cls} x="${xs(i)-bw/2}" y="${ya(x.rev)}" width="${bw}" height="${ya(0)-ya(x.rev)}" fill="var(--stone)" rx="4"/>`;
+    const eh=Math.abs(ya(x.eb)-ya(0));
+    a+=`<rect ${cls} x="${xs(i)-bw*.3}" y="${x.eb>=0?ya(x.eb):ya(0)}" width="${bw*.6}" height="${eh}" fill="${x.eb>=0?'var(--ink)':'var(--err)'}" rx="3"/>`;
+    a+=`<text x="${xs(i)}" y="${H-8}" text-anchor="middle" font-size="11" fill="${S.year-1===i?'var(--ink)':'var(--mute)'}" font-weight="${S.year-1===i?700:500}">Y${x.y}</text>`;
+  });
+  a+='</svg>';$('#chA',root).innerHTML=a;
+  const all=r.rows.map(x=>x.cum).concat(g.rows.map(x=>x.cum),[-r.capex,0]);
+  const maxB=Math.max(...all),minB=Math.min(...all),rngB=maxB-minB||1;
+  const yb=v=>pt+ih*(1-(v-minB)/rngB);
+  let b=`<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Cumulative cash by year">`;
+  [minB,(minB+maxB)/2,maxB].forEach(v=>{b+=`<line x1="${pl}" x2="${W-pr}" y1="${yb(v)}" y2="${yb(v)}" stroke="var(--hair-soft)"/><text x="${pl-6}" y="${yb(v)+4}" text-anchor="end" font-size="11" fill="var(--mute)">${fmt(v)}</text>`});
+  b+=`<line x1="${pl}" x2="${W-pr}" y1="${yb(0)}" y2="${yb(0)}" stroke="var(--ash)" stroke-dasharray="4 4"/>`;
+  const path=rows=>rows.map((x,i)=>`${i?'L':'M'}${xs(i)},${yb(x.cum)}`).join(' ');
+  b+=`<line x1="${xs(S.year-1)}" x2="${xs(S.year-1)}" y1="${pt}" y2="${H-pb}" stroke="var(--stone)" stroke-width="2"/>`;
+  if(p.delay>0)b+=`<path d="${path(g.rows)}" fill="none" stroke="var(--ash)" stroke-width="2" stroke-dasharray="5 5"/>`;
+  b+=`<path ${anim?'class="dr"':''} d="${path(r.rows)}" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" pathLength="1"/>`;
+  r.rows.forEach((x,i)=>{b+=`<circle cx="${xs(i)}" cy="${yb(x.cum)}" r="${S.year-1===i?6:3.5}" fill="${S.year-1===i?'var(--canvas)':'var(--ink)'}" stroke="var(--ink)" stroke-width="${S.year-1===i?3:0}"/>`;b+=`<text x="${xs(i)}" y="${H-8}" text-anchor="middle" font-size="11" fill="var(--mute)">Y${x.y}</text>`});
+  b+='</svg>';$('#chB',root).innerHTML=b;
+  $('#lgB',root).innerHTML=`<span><i style="background:var(--ink)"></i>This case</span>${p.delay>0?'<span><i style="background:var(--ash)"></i>No delay</span>':''}`;
+  const pbT=r.pb?`Year ${r.pb}`:'Beyond Y10',dl=(r.pb&&g.pb)?r.pb-g.pb:null;
+  $('#sim-out',root).innerHTML=`
+   <div class="stat"><span class="v num">${r.be?'Year '+r.be:'Not in 10 yrs'}</span><span class="l">EBITDA turns positive</span></div>
+   <div class="stat"><span class="v num">${pbT}</span><span class="l">Cash payback${dl>0?` (${dl} yr later than no delay)`:''}</span></div>
+   <div class="stat"><span class="v num">${pc(r.roic,0)}</span><span class="l">Post-tax ROIC in year ${r.my}</span></div>
+   <div class="stat"><span class="v num">${cr(r.peak)}</span><span class="l">Peak funding need</span></div>`;
+  $('#sim-strip',root).innerHTML=`<span><b>${r.be?'Y'+r.be:'None'}</b> EBITDA positive</span><span><b>${r.pb?'Y'+r.pb:'>Y10'}</b> payback</span><span><b>${pc(r.roic,0)}</b> ROIC</span>`;
+  this.paintYear();
+},
+paintYear(){
+  const root=$('#slide-lifecycle'),r=this.r,x=r.rows[S.year-1];
+  $('#yr-l',root).textContent=S.year;$('#yr',root).value=S.year;setRange($('#yr',root));
+  $('#sbeds',root).innerHTML=Array.from({length:100},(_,i)=>`<i class="bed ${i<Math.round(x.o*100)?'occ':'open'}"></i>`).join('');
+  $('#yr-stats',root).innerHTML=[['Occupancy',pc(x.o,0)],['Revenue',cr(x.rev)],['EBITDA',cr(x.eb)],['Discharges',fmt(x.disc/1000,1)+'k']].map(([l,v])=>`<div class="stat" style="padding:12px"><span class="v num" style="font-size:22px">${v}</span><span class="l">${l}</span></div>`).join('');
+},
+enter(){this.paint(true)},
+on(act,k,root){
+  if(act==='preset'){S.sim={...SIM_DEF,...PRESETS[k][1]};root.innerHTML=this.html();bindSim(root,this);this.paint(true)}
+  if(act==='play'){
+    const btn=$('#play',root);
+    if(S.playing){S.playing=false;btn.textContent='Play the ramp';clearInterval(this.t);return}
+    S.playing=true;btn.textContent='Pause';S.year=1;this.paint(false);
+    this.t=setInterval(()=>{if(S.year>=10){S.playing=false;btn.textContent='Play the ramp';clearInterval(this.t);return}S.year++;this.paint(false)},RM?200:650);
+  }
+},leave(){S.playing=false;clearInterval(this.t);const b=$('#play');if(b)b.textContent='Play the ramp'}});
+
+/* ===== 6 operating base case ===== */
+const METRICS={
+ cagr:['FY26\u201331E revenue CAGR',c=>cagr(c),v=>pc(v),'Growth the model assumes from capacity and maturation.'],
+ m31:['FY31E EBITDA margin',c=>c.m[4],v=>pc(v),'Steady-state margin the model transitions toward.'],
+ exp:['Margin change, FY26A to FY31E',c=>c.ebitda[3]?c.m[4]-c.ebitda[3]/c.rev[3]:null,v=>v==null?'n/a':(v>=0?'+':MIN)+Math.abs(v*100).toFixed(1)+' pp','HCG starts from a 7.3% FY26 margin, so it has the largest modelled recovery.'],
+ roce:['FY31E ROCE',c=>c.roce[8],v=>pc(v),'Kovai\u2019s level reflects a small modelled equity base.'],
+ ndx:['FY26 net debt / EBITDA',c=>(c.ebitda[3]&&c.nd[3]!=null)?c.nd[3]/c.ebitda[3]:null,v=>v==null?'n/a':fmt(v,2)+'x','Negative means net cash. Not available for Kovai in the operating sheet.'],
+ pat:['PAT, FY31E vs FY26A',c=>c.pat[8]/c.pat[3],v=>fmt(v,1)+'x','HCG starts from a very low FY26 PAT base.']
+};
+SLIDES.push({id:'peers',title:'Operating base case',
+html:()=>`<div class="wrap">
+<div class="head"><h2 class="d-lg">The operating models are unchanged. Only Yatharth gained a data point.</h2>
+<p class="lead">FY26 EBITDA for Yatharth (\u20B9292 crore, a 24.2% margin) now comes from reported company figures. Everything else in the operating forecast is as before. Pick a lens to compare the ten.</p></div>
+${chipRow(Object.entries(METRICS).map(([k,v])=>[k,v[0]]),S.metric,'metric')}
+<div class="feature" style="margin:16px 0"><div class="bars" id="mbars"></div><p class="sm" id="mnote" style="margin-top:12px"></p></div>
+<h3 class="h-lg" style="margin-bottom:12px">Full comparison</h3>
+<div class="tablewrap noswipe"><table><thead><tr><th>Company</th><th>FY26 rev</th><th>FY31E rev</th><th>CAGR</th><th>FY26 EBITDA</th><th>FY31E EBITDA</th><th>FY26 PAT</th><th>FY31E PAT</th><th>ND/EBITDA</th><th>FY31E ROCE</th></tr></thead><tbody>
+${COS.map(k=>{const c=D[k],e=c.ebitda[3]?c.ebitda[3]/c.rev[3]:null,nd=METRICS.ndx[1](c);return `<tr data-k="${k}"><td>${FULLNAME[k]}</td><td>${fmt(c.rev[3],1)}</td><td>${fmt(c.rev[8],1)}</td><td>${pc(cagr(c))}</td><td>${e?pc(e):'\u2013'}</td><td>${pc(c.m[4])}</td><td>${fmt(c.pat[3],1)}</td><td>${fmt(c.pat[8],1)}</td><td>${nd==null?'\u2013':fmt(nd,2)+'x'}</td><td>${pc(c.roce[8])}</td></tr>`}).join('')}
+</tbody></table></div>
+<p class="cap" style="margin-top:8px">\u20B9 crore except percentages and multiples. FY27E\u2013FY31E are analyst-model estimates. FY26 net debt for Kovai is blank in the operating sheet, so its ratio shows a dash.</p>
+</div>`,
+init(root){
+  const box=$('#mbars',root);
+  box.innerHTML=COS.map(k=>`<div class="bar-row" data-k="${k}"><span class="n">${LBL[k]}</span><div class="bar-track"><div class="bar-fill"></div></div><span class="v num"></span></div>`).join('');
+  box.style.display='flex';box.style.flexDirection='column';
+  this.paint=()=>{
+    const [l,f,fm,note]=METRICS[S.metric];
+    const vals=COS.map(k=>f(D[k])),mx=Math.max(...vals.filter(v=>v!=null).map(Math.abs));
+    const order=[...COS.keys()].sort((a,b)=>(vals[b]??-1e9)-(vals[a]??-1e9));
+    $$('.bar-row',box).forEach((row,i)=>{
+      const v=vals[i],fill=$('.bar-fill',row);row.style.order=order.indexOf(i);
+      fill.style.width=v==null?'0%':Math.max(2,Math.abs(v)/mx*100)+'%';
+      fill.classList.toggle('lite',v!=null&&v<0);$('.v',row).textContent=fm(v);
+    });
+    $('#mnote',root).textContent=note;
+    $$('[data-act=metric]',root).forEach(b=>b.setAttribute('aria-pressed',b.dataset.k===S.metric));
+  };
+  this.paint();
+},
+enter(root){$$('#mbars .bar-fill',root).forEach(f=>{const w=f.style.width;f.style.transition='none';f.style.width='0%';void f.offsetWidth;f.style.transition='';requestAnimationFrame(()=>requestAnimationFrame(()=>f.style.width=w))})},
+on(act,k){if(act==='metric'){S.metric=k;this.paint()}}});
+
+/* ===== 7 reverse operating valuation ===== */
+function flatOpts(c,marginPct,extra){return Object.assign({dm:marginPct/100-c.m[4],dmode:'flat'},extra||{})}
+function solveMargin(c){
+  let lo=-.3,hi=1.2;
+  for(let i=0;i<50;i++){const mid=(lo+hi)/2;(runModel(c,{dm:mid,dmode:'flat'}).dcf<c.mcap?lo=mid:hi=mid)}
+  return c.m[4]+(lo+hi)/2;
+}
+SLIDES.push({id:'reverse',title:'Reverse valuation',
+html:()=>{
+  const ms=COS.map(k=>D[k].ro.mm),lo=Math.min(...ms),hi=Math.max(...ms);
+  return `<div class="wrap">
+<div class="head"><h2 class="d-lg">To justify today\u2019s EV, FY31 margins would need to be ${pc(lo,0)} to ${pc(hi,0)}.</h2>
+<p class="lead">A forward DCF asks what a set of assumptions is worth. Reverse valuation asks what the current enterprise value requires. Here revenue, capex and working capital stay as modelled, and we solve for the EBITDA margin.</p></div>
+<div class="two-col">
+ <div class="feature"><div class="row" style="justify-content:space-between;margin-bottom:8px"><span class="h-md">FY31 EBITDA margin: base vs market-implied</span></div>
+  <div class="legend" style="margin-bottom:8px"><span><i style="background:var(--ink)"></i>Base model</span><span><i style="background:var(--stone)"></i>Market-implied</span></div>
+  <div id="rv-rows" style="display:flex;flex-direction:column;gap:2px"></div>
+  <p class="cap" style="margin-top:12px">Market-implied margins are the workbook\u2019s own solve at current EV. Tap a company to test it.</p></div>
+ <div class="feature soft" id="rv-detail"></div>
+</div>
+<div class="note" style="margin-top:16px"><b>Interpretation.</b> For several companies the price-equivalent margin is far above our FY31 base margin if revenue, capex, working capital and discount-rate assumptions are held constant. This does not prove the market is wrong. It identifies exactly where our model and the market disagree.</div>
+</div>`},
+init(root){
+  const rows=$('#rv-rows',root);
+  rows.innerHTML=COS.map(k=>`<button class="rv-row" data-act="rvco" data-k="${k}"><span class="n">${LBL[k]}</span><div class="rv-track"><div class="rv-b base" data-w="${D[k].m[4]/.65*100}%"></div><div class="rv-b imp" data-w="${D[k].ro.mm/.65*100}%"></div></div><span class="v num">${pc(D[k].m[4],0)} \u2192 ${pc(D[k].ro.mm,0)}</span></button>`).join('');
+  this.build=()=>{
+    const k=S.co,c=D[k],ro=c.ro;
+    $$('.rv-row',rows).forEach(r=>r.classList.toggle('sel',r.dataset.k===k));
+    if(S.revmCo!==k){S.revm=+(c.m[4]*100).toFixed(1);S.revmCo=k}
+    $('#rv-detail',root).innerHTML=`<div class="row" style="justify-content:space-between"><h3 class="h-lg">${FULLNAME[k]}</h3><span class="pill dark">${cap1(ro.test)}</span></div>
+     <p class="sm" style="margin:4px 0 8px">${ro.txt}</p>
+     ${ctl('r-m','FY31 EBITDA margin, shifted in every forecast year',10,70,0.5,S.revm,'%',1)}
+     <div class="row" style="margin:4px 0 12px"><button class="chip" data-act="rvbase">Base ${pc(c.m[4])}</button><button class="chip" data-act="rvwb">Workbook ${pc(ro.mm)}</button><button class="chip" data-act="rvsolve">Solve live</button></div>
+     <div class="grid g2" id="r-out"></div>
+     <p class="cap" id="r-note" style="margin-top:8px"></p>
+     <h4 class="h-md" style="margin:16px 0 8px">Terminal economics at the base case</h4>
+     <div class="grid g3"><div class="stat" style="background:var(--canvas);padding:12px"><span class="v num" style="font-size:20px">${pc(c.ta.reinv)}</span><span class="l">Terminal reinvestment</span></div><div class="stat" style="background:var(--canvas);padding:12px"><span class="v num" style="font-size:20px">${pc(c.ta.roic,0)}</span><span class="l">Implied terminal ROIC</span></div><div class="stat" style="background:var(--canvas);padding:12px"><span class="v num" style="font-size:20px">${pc(ro.mr,0)}</span><span class="l">Reinvestment at market-implied margin</span></div></div>
+     <p class="cap" style="margin-top:8px">${ro.mr<0?'A negative figure means that at the market-implied margin the terminal economics cannot be reconciled with growth that needs any reinvestment.':'Close to zero means the market-implied margin is nearly consistent with the base terminal economics.'}</p>`;
+    bindRanges($('#rv-detail',root),el=>{S.revm=+el.value;this.out()});
+    this.out();
+  };
+  this.out=(solved)=>{
+    const k=S.co,c=D[k],m=runModel(c,flatOpts(c,S.revm));
+    const base=runModel(c);
+    $('#r-out',root).innerHTML=[[cr(m.dcf),'Corrected DCF equity'],[cr(c.mcap),'Market cap'],[sp(m.gap),'DCF equity vs market cap'],[cr(m.ebitda[4]),'FY31E EBITDA at this margin']].map(([v,l])=>`<div class="stat" style="background:var(--canvas);padding:12px"><span class="v num" style="font-size:20px">${v}</span><span class="l">${l}</span></div>`).join('');
+    $('#r-note',root).textContent=solved?`Live solve gives ${pc(solved)} with a parallel shift in every year\u2019s margin. The workbook\u2019s own solver reports ${pc(c.ro.mm)}. The small difference comes from how the shift is spread across years.`:`Base case DCF equity is ${cr(base.dcf)}. The highest FY31E margin modelled across the ten is ${pc(Math.max(...COS.map(q=>D[q].m[4])))}.`;
+  };
+  this.build();
+},
+enter(root){this.build();fillBars($('#rv-rows',root))},
+on(act,k,root){
+  const c=D[S.co];
+  if(act==='rvco'){S.co=k;this.build();return}
+  if(act==='rvbase'){S.revm=+(c.m[4]*100).toFixed(1);syncRange(root,'r-m',S.revm,1,'%');this.out()}
+  if(act==='rvwb'){S.revm=+(c.ro.mm*100).toFixed(1);syncRange(root,'r-m',S.revm,1,'%');this.out()}
+  if(act==='rvsolve'){const x=solveMargin(c);S.revm=+(x*100).toFixed(1);syncRange(root,'r-m',S.revm,1,'%');this.out(x)}
+}});
+
+/* ===== 8 SOTP ===== */
+function sotpCalc(c,p){
+  const e26=c.ebitda[3],mat=e26*p.sh,ramp=e26-mat,mev=mat*p.mx,rev=ramp*p.mx*p.rf;
+  const m31=e26*Math.pow(1+p.g,5),inc=Math.max(c.ebitda[8]-m31,0),fut=inc*p.mx*p.pf/Math.pow(1+c.wacc,5);
+  const ev=mev+rev+fut;return {mev,rev,fut,ev,eq:ev-(c.nd[3]||0),inc};
+}
+SLIDES.push({id:'sotp',title:'Mature and ramping SOTP',
+html:()=>`<div class="wrap">
+<div class="head"><h2 class="d-lg">Not every bed is at the same stage.</h2>
+<p class="lead">A hospital network should not be valued as if every bed were mature. The SOTP separates today\u2019s mature EBITDA, today\u2019s ramping EBITDA, and the extra FY31 EBITDA that depends on future capacity. The split is our analyst framework, not a company disclosure.</p></div>
+${coChips('sco')}
+<div class="two-col" style="margin-top:16px">
+ <div class="stack">
+  <div class="feature"><div class="row" style="justify-content:space-between"><h3 class="h-lg" id="so-t"></h3><span class="pill dark" id="so-pos"></span></div>
+   <p class="sm" style="margin:4px 0 12px">Enterprise value by stage, \u20B9 crore</p>
+   <div class="stk" id="so-stk"></div><div class="stk-leg" id="so-leg"></div>
+   <div class="bars" id="so-cmp" style="display:flex;flex-direction:column;margin-top:16px"></div></div>
+  <div class="feature"><h3 class="h-md" style="margin-bottom:8px">How the SOTP builds</h3>
+   <div class="flow" id="so-flow"></div></div>
+ </div>
+ <div class="feature soft"><h3 class="h-md" style="margin-bottom:4px">Editable assumptions</h3><p class="cap" style="margin-bottom:8px">Starts at the workbook values. Move any slider.</p><div id="so-ctl"></div>
+  <div class="row" style="margin-top:8px"><button class="btn btn-secondary" data-act="soreset">Reset to workbook</button></div></div>
+</div>
+<h3 class="h-lg" style="margin:32px 0 12px">All ten, as published</h3>
+<div class="tablewrap noswipe"><table><thead><tr><th>Company</th><th>Mature share</th><th>Mature EV</th><th>Ramp EV</th><th>Future growth PV</th><th>SOTP equity</th><th>vs market cap</th></tr></thead><tbody>
+${COS.map(k=>{const c=D[k],s=c.so;return `<tr data-k="${k}"><td>${FULLNAME[k]}</td><td>${pc(s.sh,0)}</td><td>${fmt(s.matev,1)}</td><td>${fmt(s.rampev,1)}</td><td>${fmt(s.futpv,1)}</td><td>${fmt(s.eq,1)}</td><td>${sp(s.eq/c.mcap-1)}</td></tr>`}).join('')}</tbody></table></div>
+<p class="cap" style="margin-top:8px">\u20B9 crore. Mature EV = mature EBITDA \u00D7 multiple. Ramp EV applies a ramp discount. Future growth PV is the incremental FY31 EBITDA \u00D7 multiple \u00D7 execution probability, discounted five years at the company WACC.</p>
+</div>`,
+init(root){this.setup()},
+setup(){
+  const root=$('#slide-sotp'),k=S.co,c=D[k];
+  S.sp={...c.so};S.spCo=k;
+  $('#so-ctl',root).innerHTML=
+   ctl('p-sh','Mature share of FY26 EBITDA',40,100,1,c.so.sh*100,'%')+ctl('p-g','Mature EBITDA growth a year',0,15,0.5,c.so.g*100,'%',1)+
+   ctl('p-mx','Mature EV/EBITDA multiple',10,40,1,c.so.mx,'x')+ctl('p-rf','Ramp multiple factor',30,100,5,c.so.rf*100,'%')+ctl('p-pf','Execution probability for future growth',0,100,5,c.so.pf*100,'%');
+  bindRanges($('#so-ctl',root),el=>{
+    const m={'p-sh':['sh',100],'p-g':['g',100],'p-mx':['mx',1],'p-rf':['rf',100],'p-pf':['pf',100]}[el.id];
+    S.sp[m[0]]=+el.value/m[1];this.paint();
+  });
+  $$('.chip',root).forEach(b=>b.setAttribute('aria-pressed',b.dataset.k===k));
+  $$('tbody tr',root).forEach(r=>r.classList.toggle('sel',r.dataset.k===k));
+  this.paint(true);
+},
+paint(anim){
+  const root=$('#slide-sotp'),k=S.co,c=D[k],s=sotpCalc(c,S.sp);
+  $('#so-t',root).textContent=FULLNAME[k];
+  const gap=s.eq/c.mcap-1;$('#so-pos',root).textContent=sp(gap)+' vs market cap';
+  const mx=s.ev;
+  const segs=[['Mature',s.mev,'var(--ink)','#fff'],['Ramping',s.rev,'var(--mute)','#fff'],['Future growth',s.fut,'var(--stone)','var(--ink)']];
+  $('#so-stk',root).innerHTML=segs.map(([l,v,bg,fg])=>`<div class="stk-seg" style="width:${v/mx*100}%;background:${bg};color:${fg}">${v/mx>.12?pc(v/mx,0):''}</div>`).join('');
+  $('#so-leg',root).innerHTML=segs.map(([l,v,bg])=>`<span><i style="background:${bg}"></i>${l} ${fmt(v)}</span>`).join('')+`<span><b>EV ${fmt(s.ev)}</b></span>`;
+  const bm=Math.max(s.eq,c.mcap);
+  $('#so-cmp',root).innerHTML=[['SOTP equity',s.eq,''],['Market cap',c.mcap,'lite']].map(([l,v,st])=>`<div class="bar-row" style="grid-template-columns:104px 1fr 72px;padding:0"><span class="n">${l}</span><div class="bar-track"><div class="bar-fill ${st}" style="width:${Math.max(0,v)/bm*100}%"></div></div><span class="v num">${fmt(v)}</span></div>`).join('');
+  const steps=[['Mature EBITDA',`${fmt(c.ebitda[3]*S.sp.sh,0)} \u00D7 ${S.sp.mx.toFixed(0)}x`,s.mev],['Ramping EBITDA',`${fmt(c.ebitda[3]*(1-S.sp.sh),0)} \u00D7 ${S.sp.mx.toFixed(0)}x \u00D7 ${pc(S.sp.rf,0)}`,s.rev],['Future growth',`${fmt(s.inc,0)} extra FY31 EBITDA \u00D7 ${pc(S.sp.pf,0)}, discounted`,s.fut],['Less FY26 net debt',fmt(c.nd[3]||0,0),-(c.nd[3]||0)]];
+  $('#so-flow',root).innerHTML=steps.map(([a,b,v])=>`<div class="flow-step"><div><b>${a}</b><br><span>${b}</span></div><span class="num" style="font-size:16px;font-weight:700;color:var(--ink)">${v<0?MIN:''}${fmt(Math.abs(v))}</span></div>`).join('')+`<div class="flow-step on"><b>SOTP equity</b><span class="num" style="font-size:16px;font-weight:700">${fmt(s.eq)}</span></div>`;
+},
+enter(){this.setup()},
+on(act,k,root){
+  if(act==='sco'){S.co=k;this.setup()}
+  if(act==='soreset')this.setup();
+}});
+
+/* ===== 9 scenario tree ===== */
+SLIDES.push({id:'scenario',title:'Scenario tree',
+html:()=>{
+  const n=COS.filter(k=>D[k].scn.Bull.eq<D[k].mcap).length;
+  return `<div class="wrap">
+<div class="head"><h2 class="d-lg">In ${['zero','one','two','three','four','five','six','seven','eight','nine','ten'][n]} of ten names, even the bull case sits below today\u2019s market cap.</h2>
+<p class="lead">Bear, base and bull cases now change the business drivers: revenue growth, FY31 margin, capex intensity, WACC and terminal growth. They are not a percentage haircut or premium on one fair value. The probabilities are explicit and editable.</p></div>
+<div class="feature" style="margin-bottom:16px"><h3 class="h-md" style="margin-bottom:8px">What each scenario changes, against the base case</h3>
+ <div class="tablewrap noswipe" style="background:var(--card)"><table style="min-width:520px"><thead><tr><th style="background:var(--card)">Scenario</th><th style="background:var(--card)">Revenue CAGR</th><th style="background:var(--card)">FY31 margin</th><th style="background:var(--card)">Capex</th><th style="background:var(--card)">WACC</th><th style="background:var(--card)">Terminal g</th></tr></thead><tbody>
+ <tr><td style="background:var(--card)">Bear</td><td>${MIN}4 pp</td><td>${MIN}3 pp</td><td>1.10x</td><td>+1.0 pp</td><td>${MIN}0.5 pp</td></tr><tr><td style="background:var(--card)">Base</td><td>0</td><td>0</td><td>1.00x</td><td>0</td><td>0</td></tr><tr><td style="background:var(--card)">Bull</td><td>+3 pp</td><td>+2 pp</td><td>0.95x</td><td>${MIN}0.5 pp</td><td>+0.5 pp</td></tr></tbody></table></div></div>
+${coChips('scc')}
+<div class="two-col" style="margin-top:16px">
+ <div class="feature"><div class="row" style="justify-content:space-between"><h3 class="h-lg" id="sc-t"></h3><span class="pill dark" id="sc-e"></span></div>
+  <p class="sm" style="margin:4px 0 12px">Equity value by scenario, \u20B9 crore. The dashed line is today\u2019s market cap.</p>
+  <div class="tree" id="sc-tree"></div>
+  <div class="grid g2" id="sc-out" style="margin-top:16px"></div></div>
+ <div class="stack">
+  <div class="feature soft"><h3 class="h-md" style="margin-bottom:4px">Set the probabilities</h3><p class="cap" style="margin-bottom:8px">Base takes whatever is left. Workbook default is 25 / 50 / 25.</p>
+   ${ctl('sc-bear','Bear probability',0,100,5,S.probs.Bear,'%')}${ctl('sc-bull','Bull probability',0,100,5,S.probs.Bull,'%')}
+   <div class="note" style="background:var(--canvas);margin-top:8px" id="sc-base"></div>
+   <div class="row" style="margin-top:8px"><button class="btn btn-secondary" data-act="scr">Reset to 25 / 50 / 25</button></div></div>
+  <div class="feature"><h3 class="h-md" style="margin-bottom:8px">Probability-weighted equity, all ten</h3><div class="bars" id="sc-all" style="display:flex;flex-direction:column"></div><p class="cap" style="margin-top:8px">Expected equity as a share of market cap, at the probabilities you set.</p></div>
+ </div></div></div>`},
+init(root){
+  bindRanges(root,el=>{
+    if(el.id==='sc-bear'){S.probs.Bear=+el.value;if(S.probs.Bear+S.probs.Bull>100){S.probs.Bull=100-S.probs.Bear;syncRange(root,'sc-bull',S.probs.Bull,0,'%')}}
+    if(el.id==='sc-bull'){S.probs.Bull=+el.value;if(S.probs.Bear+S.probs.Bull>100){S.probs.Bear=100-S.probs.Bull;syncRange(root,'sc-bear',S.probs.Bear,0,'%')}}
+    this.paint();
+  });
+  this.paint(true);
+},
+paint(){
+  const root=$('#slide-scenario'),k=S.co,c=D[k],pr={Bear:S.probs.Bear/100,Bull:S.probs.Bull/100};pr.Base=Math.max(0,1-pr.Bear-pr.Bull);
+  const exp=['Bear','Base','Bull'].reduce((a,s)=>a+pr[s]*c.scn[s].eq,0),mx=Math.max(c.mcap,c.scn.Bull.eq)*1.05;
+  $$('.chip',root).forEach(b=>{if(b.dataset.act==='scc')b.setAttribute('aria-pressed',b.dataset.k===k)});
+  $('#sc-t',root).textContent=FULLNAME[k];$('#sc-e',root).textContent='Expected '+fmt(exp);
+  $('#sc-tree',root).innerHTML=['Bull','Base','Bear'].map(s=>`<div class="tr-row"><div class="tr-lab"><b>${s}</b><span class="pill ${s==='Base'?'dark':''}">${(pr[s]*100).toFixed(0)}%</span></div><div class="tr-track"><div class="tr-mk" style="left:${c.mcap/mx*100}%"></div><div class="tr-fill ${s==='Base'?'':'lite'}" style="width:${c.scn[s].eq/mx*100}%;opacity:${.35+pr[s]*.65}"></div></div><span class="v num">${fmt(c.scn[s].eq)}</span></div>`).join('');
+  $('#sc-out',root).innerHTML=[[cr(exp),'Probability-weighted equity'],[sp(exp/c.mcap-1),'vs market cap'],[pc(c.scn.Bull.eq/c.mcap,0),'Bull case as a share of market cap'],[cr(c.mcap),'Market cap']].map(([v,l])=>`<div class="stat" style="padding:12px"><span class="v num" style="font-size:20px">${v}</span><span class="l">${l}</span></div>`).join('');
+  $('#sc-base',root).innerHTML=`<b>Base probability: ${(pr.Base*100).toFixed(0)}%.</b> ${pr.Bull*c.scn.Bull.eq+pr.Base*c.scn.Base.eq+pr.Bear*c.scn.Bear.eq>=c.mcap?'These weights put expected equity at or above market cap.':'Even at these weights, expected equity stays below market cap.'}`;
+  const all=COS.map(q=>{const d=D[q];return {q,r:(pr.Bear*d.scn.Bear.eq+pr.Base*d.scn.Base.eq+pr.Bull*d.scn.Bull.eq)/d.mcap}});
+  const ax=Math.max(1.3,...all.map(x=>x.r));
+  $('#sc-all',root).innerHTML=all.sort((a,b)=>b.r-a.r).map(x=>`<div class="bar-row ${x.q===k?'sel':''}" style="grid-template-columns:104px 1fr 56px"><span class="n">${LBL[x.q]}</span><div class="bar-track"><div class="tr-mk" style="left:${1/ax*100}%;top:-2px;bottom:-2px"></div><div class="bar-fill ${x.r>=1?'':'lite'}" style="width:${x.r/ax*100}%"></div></div><span class="v num">${pc(x.r,0)}</span></div>`).join('');
+},
+enter(){this.paint()},
+on(act,k,root){
+  if(act==='scc'){S.co=k;this.paint()}
+  if(act==='scr'){S.probs={Bear:25,Bull:25};syncRange(root,'sc-bear',25,0,'%');syncRange(root,'sc-bull',25,0,'%');this.paint()}
+}});
+
+/* ===== 10 Monte Carlo ===== */
+const MCN=4000,MCZ={};
+function rngf(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function mcZ(k){
+  if(MCZ[k])return MCZ[k];
+  const r=rngf(20261001),nm=()=>{let u=0;while(!u)u=r();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*r())};
+  const a=[];for(let i=0;i<MCN;i++)a.push([nm(),nm(),nm(),nm(),nm(),nm()]);return MCZ[k]=a;
+}
+const MCS={cagr:2.5,m:1.8,w:0.7};
+function mcRun(k){
+  const c=D[k],z=mcZ(k),out=new Array(MCN);
+  for(let i=0;i<MCN;i++){const q=z[i],w=q[2]*MCS.w/100,wacc=c.wacc+w,tg=Math.min(c.tg+q[3]*.004,wacc-.015);
+    out[i]=runModel(c,{dg:q[0]*MCS.cagr/100,dm:q[1]*MCS.m/100,wacc,tg,cx:Math.max(.5,1+q[4]*.1),nwc:Math.max(0,c.nwc+q[5]*.003)}).dcf}
+  return out;
+}
+const pctl=(s,p)=>{const i=(s.length-1)*p,f=Math.floor(i);return s[f]+(s[Math.min(f+1,s.length-1)]-s[f])*(i-f)};
+SLIDES.push({id:'mc',title:'Monte Carlo',
+html:()=>`<div class="wrap">
+<div class="head"><h2 class="d-lg">Make the uncertainty visible.</h2>
+<p class="lead">Instead of one precise number, run thousands of plausible futures. Each draw varies revenue growth, FY31 margin, WACC, terminal growth, capex intensity and working capital, and keeps each company\u2019s own capex profile. The workbook runs 5,000 draws with seed 20261001. This page re-runs ${fmt(MCN)} of them live.</p></div>
+${coChips('mco')}
+<div class="two-col wide-l" style="margin-top:16px">
+ <div class="feature"><div class="row" style="justify-content:space-between;margin-bottom:8px"><h3 class="h-lg" id="mc-t"></h3><button class="btn btn-secondary" id="mc-run" data-act="mcrun">Run the simulation</button></div>
+  <div id="mc-chart"></div>
+  <div class="legend" style="margin-top:8px"><span><i style="background:var(--stone)"></i>Simulated equity value</span><span><i style="background:var(--ink);border-radius:2px;width:3px;height:12px"></i>Live P10, P50, P90</span><span><i style="background:var(--mute);border-radius:2px;width:12px;height:6px"></i>Workbook P10, P50, P90</span></div>
+  <div class="grid g4" id="mc-stats" style="margin-top:12px"></div></div>
+ <div class="stack">
+  <div class="feature soft"><h3 class="h-md" style="margin-bottom:4px">How uncertain are the inputs?</h3><p class="cap" style="margin-bottom:8px">Standard deviations. Workbook values are 2.5, 1.8 and 0.7. Terminal growth, capex and working capital stay fixed.</p>
+   ${ctl('mc-c','Revenue growth, every year',0,5,0.25,MCS.cagr,' pp',2)}${ctl('mc-m','FY31 EBITDA margin',0,4,0.2,MCS.m,' pp',1)}${ctl('mc-w','WACC',0,1.5,0.05,MCS.w,' pp',2)}
+   <div class="row" style="margin-top:8px"><button class="btn btn-secondary" data-act="mcreset">Reset to workbook</button></div></div>
+  <div class="feature"><h3 class="h-md" style="margin-bottom:8px">What drives the spread (workbook)</h3><div id="mc-drv"></div>
+   <p class="cap" style="margin-top:8px">Correlation between each input and simulated equity value across the workbook\u2019s 5,000 draws.</p></div>
+ </div></div>
+<div class="note" style="margin-top:16px"><b>Read the warning.</b> In most names WACC is the single largest driver of simulated value. When discount-rate uncertainty dominates, the right message is a range and operating milestones, not a precise target. Try setting the WACC slider to zero.</div>
+<h3 class="h-lg" style="margin:32px 0 12px">All ten, from the workbook</h3>
+<div class="tablewrap noswipe"><table><thead><tr><th>Company</th><th>Market cap</th><th>P10</th><th>P50</th><th>P90</th><th>Chance value is above market cap</th><th>Top driver</th></tr></thead><tbody>
+${COS.map(k=>{const c=D[k],m=c.mc;return `<tr data-k="${k}"><td>${FULLNAME[k]}</td><td>${fmt(c.mcap,1)}</td><td>${fmt(m.p10,1)}</td><td>${fmt(m.p50,1)}</td><td>${fmt(m.p90,1)}</td><td>${pc(m.pr)}</td><td>${m.d1}</td></tr>`}).join('')}</tbody></table></div>
+<p class="cap" style="margin-top:8px">\u20B9 crore equity value. Monte Carlo distributions are only as good as the chosen input distributions and do not remove model risk.</p>
+</div>`,
+init(root){
+  bindRanges(root,el=>{MCS[{'mc-c':'cagr','mc-m':'m','mc-w':'w'}[el.id]]=+el.value;this.draw(true)});
+  this.draw(true);
+},
+draw(final,upto){
+  const root=$('#slide-mc'),k=S.co,c=D[k];this.out=mcRun(k);const out=this.out,s=[...out].sort((a,b)=>a-b);
+  const p10=pctl(s,.1),p50=pctl(s,.5),p90=pctl(s,.9),pr=out.filter(v=>v>c.mcap).length/MCN;
+  let lo=pctl(s,.005),hi=pctl(s,.995);const inc=c.mcap<=hi*1.25;if(inc){lo=Math.min(lo,c.mcap*.95);hi=Math.max(hi,c.mcap*1.05)}
+  const NB=40,bw=(hi-lo)/NB,cnt=new Array(NB).fill(0),n=final?MCN:upto;
+  for(let i=0;i<n;i++){const b=Math.min(NB-1,Math.max(0,Math.floor((out[i]-lo)/bw)));cnt[b]++}
+  const W=Math.max(300,Math.min(760,$('#mc-chart',root).clientWidth||600)),H=224,pl=6,pr2=6,pt=22,pb=48,iw=W-pl-pr2,ih=H-pt-pb,mxc=Math.max(...cnt,1);
+  const X=v=>pl+(v-lo)/(hi-lo)*iw;
+  let g=`<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Histogram of simulated equity value for ${FULLNAME[k]}">`;
+  cnt.forEach((v,i)=>{const h=v/mxc*ih;g+=`<rect x="${pl+i*iw/NB+1}" y="${pt+ih-h}" width="${iw/NB-2}" height="${h}" rx="3" fill="var(--stone)"/>`});
+  g+=`<line x1="${pl}" x2="${W-pr2}" y1="${pt+ih}" y2="${pt+ih}" stroke="var(--ash)"/>`;
+  if(final||upto>=MCN*.5){[['P10',p10],['P50',p50],['P90',p90]].forEach(([l,v])=>{g+=`<line x1="${X(v)}" x2="${X(v)}" y1="${pt-4}" y2="${pt+ih}" stroke="var(--ink)" stroke-width="2.5"/><text x="${X(v)}" y="${pt-8}" text-anchor="middle" font-size="11" font-weight="700" fill="var(--ink)">${l}</text>`})}
+  [['p10',c.mc.p10],['p50',c.mc.p50],['p90',c.mc.p90]].forEach(([l,v])=>{if(v>=lo&&v<=hi)g+=`<path d="M${X(v)-6},${pt+ih+14} L${X(v)+6},${pt+ih+14} L${X(v)},${pt+ih+4} Z" fill="var(--mute)"/>`});
+  if(inc)g+=`<line x1="${X(c.mcap)}" x2="${X(c.mcap)}" y1="${pt-4}" y2="${pt+ih}" stroke="var(--ink)" stroke-width="2" stroke-dasharray="5 4"/><text x="${X(c.mcap)}" y="${pt+ih+34}" text-anchor="middle" font-size="11" font-weight="700" fill="var(--ink)">Market cap</text>`;
+  
+  [lo,(lo+hi)/2,hi].forEach((v,i)=>{g+=`<text x="${i===0?pl:i===1?W/2:W-pr2}" y="${H-2}" text-anchor="${i===0?'start':i===1?'middle':'end'}" font-size="11" fill="var(--mute)">${fmt(v)}</text>`});
+  g+='</svg>';$('#mc-chart',root).innerHTML=g+`<p class="cap" id="mc-note" style="margin-top:4px">${inc?'The dashed line is today\u2019s market cap.':'Market cap of \u20B9'+fmt(c.mcap)+' cr sits to the right of this chart, beyond every simulated draw.'}</p>`;
+  $('#mc-t',root).textContent=FULLNAME[k];
+  $$('.chip',root).forEach(b=>{if(b.dataset.act==='mco')b.setAttribute('aria-pressed',b.dataset.k===k)});
+  $('#mc-stats',root).innerHTML=[[fmt(p10),'P10',fmt(c.mc.p10)],[fmt(p50),'P50',fmt(c.mc.p50)],[fmt(p90),'P90',fmt(c.mc.p90)],[pc(pr),'Above market cap',pc(c.mc.pr)]].map(([v,l,w])=>`<div class="stat" style="padding:12px"><span class="v num" style="font-size:20px">${final||upto>=MCN?v:'\u2013'}</span><span class="l">${l}<br><span class="cap">Workbook ${w}</span></span></div>`).join('');
+  const dr=[[c.mc.d1,c.mc.c1],[c.mc.d2,c.mc.c2]];
+  $('#mc-drv',root).innerHTML=dr.map(([d,v])=>`<div class="bar-row" style="grid-template-columns:120px 1fr 52px;padding:0"><span class="n">${d}</span><div class="div-track"><div class="div-fill ${v<0?'neg':'pos'}" style="width:${Math.abs(v)*50}%;background:${v<0?'var(--mute)':'var(--ink)'}"></div></div><span class="v num">${v<0?MIN:'+'}${Math.abs(v).toFixed(2)}</span></div>`).join('');
+},
+animate(){
+  clearInterval(this.t);if(RM){this.draw(true);return}
+  let j=0;this.t=setInterval(()=>{j+=250;if(j>=MCN){clearInterval(this.t);this.draw(true);return}this.draw(false,j)},40);
+},
+enter(){MCS.cagr=2.5;MCS.m=1.8;MCS.w=.7;const r=$('#slide-mc');syncRange(r,'mc-c',2.5,2,' pp');syncRange(r,'mc-m',1.8,1,' pp');syncRange(r,'mc-w',.7,2,' pp');this.animate()},
+leave(){clearInterval(this.t)},
+on(act,k,root){
+  if(act==='mco'){S.co=k;this.animate()}
+  if(act==='mcrun')this.animate();
+  if(act==='mcreset'){MCS.cagr=2.5;MCS.m=1.8;MCS.w=.7;syncRange(root,'mc-c',2.5,2,' pp');syncRange(root,'mc-m',1.8,1,' pp');syncRange(root,'mc-w',.7,2,' pp');this.draw(true)}
+}});
+
+/* ===== 11 valuation lab ===== */
+function labBase(k){const c=D[k];return {dg:0,dm:0,cx:100,wacc:c.wacc*100,tg:c.tg*100,evx:c.evx,pe:c.pe}}
+function labReset(){S.lab=labBase(S.co)}
+function labOpts(){const l=S.lab;return {dg:l.dg/100,dm:l.dm/100,dmode:'flat',cx:l.cx/100,wacc:l.wacc/100,tg:l.tg/100,evx:l.evx,pe:l.pe,basis:S.legacy?'legacy':'fy26'}}
+SLIDES.push({id:'lab',title:'Valuation lab',
+html:()=>'',
+init(root){labReset();this.lastCo=S.co;this.build(root)},
+build(root){
+  const k=S.co,c=D[k],l=S.lab;
+  root.innerHTML=`<div class="wrap">
+<div class="head"><h2 class="d-lg">Stress-test the expectation map.</h2>
+<p class="lead">Move the operating assumptions and watch the corrected DCF meet, or miss, today\u2019s market cap. Then ask the lab what has to be true to close the gap.</p></div>
+${coChips('labco')}
+<div class="row" style="justify-content:space-between;margin-top:12px"><span class="h-md">Equity bridge: corrected uses FY26 net debt, legacy uses FY31E</span><div class="seg" role="group"><button aria-pressed="${!S.legacy}" data-act="bridge" data-k="fy26">Corrected</button><button aria-pressed="${S.legacy}" data-act="bridge" data-k="legacy">Legacy</button></div></div>
+<div class="sticky-strip" id="lab-strip"></div>
+<div class="two-col rev-m" style="margin-top:16px">
+ <div class="stack">
+  <div class="feature"><h3 class="h-md" style="margin-bottom:8px">Operating assumptions</h3>
+   ${ctl('l-dg','Revenue growth, every year vs base',-8,15,0.5,l.dg,' pp',1)}
+   ${ctl('l-dm','EBITDA margin vs base, every year',-10,30,0.5,l.dm,' pp',1)}
+   ${ctl('l-cx','Capex intensity vs base',70,130,5,l.cx,'%')}</div>
+  <div class="feature"><h3 class="h-md" style="margin-bottom:8px">Cost of capital and multiples</h3>
+   ${ctl('l-wacc','WACC',8,14,0.25,l.wacc,'%',2)}
+   ${ctl('l-tg','Terminal growth',3,7,0.25,l.tg,'%',2)}
+   ${ctl('l-evx','Target EV/EBITDA on FY28E',10,36,1,l.evx,'x')}
+   ${ctl('l-pe','Target P/E on FY28E',20,70,1,l.pe,'x')}
+   <div class="row" style="margin-top:8px"><button class="btn btn-secondary" data-act="labreset">Reset to base case</button></div></div>
+  <div class="feature"><h3 class="h-md" style="margin-bottom:4px">DCF equity value (\u20B9 cr)</h3><p class="cap" style="margin-bottom:8px">WACC \u00B11 pp across, terminal growth \u00B10.5 pp down. Highlighted cells are above market cap.</p><div class="heat" id="heat"></div></div>
+ </div>
+ <div class="stack">
+  <div class="feature soft" id="lab-out"></div>
+  <div class="feature"><h3 class="h-md">What must be true?</h3><p class="sm" style="margin:4px 0 12px">Hold everything else and solve for the single assumption that closes the gap to market cap.</p>
+   <div class="row"><button class="btn btn-secondary" data-act="solvem">Solve for margin</button><button class="btn btn-secondary" data-act="solveg">Solve for growth</button></div>
+   <p class="p" id="solve-out" style="margin-top:12px"></p></div>
+ </div></div></div>`;
+  bindRanges(root,el=>{
+    const key=el.id.slice(2);S.lab[key]=+el.value;
+    if(key==='wacc'||key==='tg'){if(S.lab.wacc-S.lab.tg<1.5){if(key==='wacc')S.lab.tg=S.lab.wacc-1.5;else S.lab.wacc=S.lab.tg+1.5;this.syncCtl(root)}}
+    this.paint(root);
+  });
+  this.paint(root);
+},
+syncCtl(root){[['dg',1],['dm',1],['cx',0],['wacc',2],['tg',2],['evx',0],['pe',0]].forEach(([k,d])=>{const el=$('#l-'+k,root);if(!el)return;syncRange(root,'l-'+k,S.lab[k],d,el.dataset.unit)})},
+paint(root){
+  const k=S.co,c=D[k],o=labOpts(),m=runModel(c,o),base=runModel(c,{basis:o.basis});
+  const nopat=(m.ebitda[4]-m.rev[4]*c.da)*(1-c.tax),reinv=(m.capex[4]-m.rev[4]*c.da+(m.rev[4]-m.rev[3])*c.nwc)/nopat,roic=reinv>0?(o.tg)/reinv:null;
+  const items=[['Market cap',c.mcap],['DCF',m.dcf],['EV/EBITDA',m.eve],['P/E',m.pe]],mx=Math.max(...items.map(x=>x[1]),1);
+  $('#lab-out',root).innerHTML=`<div class="row" style="justify-content:space-between;align-items:flex-start"><div><p class="cap">${FULLNAME[k]}</p><p class="d-lg num" style="font-size:40px">${sp(m.gap)}</p><p class="sm">DCF equity vs market cap</p></div>${posPill(m.dcf>c.mcap?'DCF above market cap':'DCF below market cap')}</div>
+  <div class="bars onsoft" style="margin-top:16px;display:flex;flex-direction:column">${items.map(([l,v],i)=>`<div class="bar-row" style="grid-template-columns:96px 1fr 76px;padding:0"><span class="n">${l}</span><div class="bar-track"><div class="bar-fill ${i&&i<4?'lite':''}" style="width:${Math.max(0,v)/mx*100}%"></div></div><span class="v num">${fmt(v)}</span></div>`).join('')}</div>
+  <div class="grid g2" style="margin-top:16px">
+   <div class="stat" style="background:var(--canvas)"><span class="v num" style="font-size:26px">${pc(m.tvShare,0)}</span><span class="l">of DCF enterprise value is terminal value</span></div>
+   <div class="stat" style="background:var(--canvas)"><span class="v num" style="font-size:26px">${roic==null?'n/a':pc(roic,0)}</span><span class="l">implied terminal ROIC (terminal growth \u00F7 reinvestment)</span></div></div>
+  <p class="cap" style="margin-top:12px">Base case for ${LBL[k]}: ${sp(base.gap)} on this bridge. FY31E EBITDA margin in this run: ${pc(c.m[4]+S.lab.dm/100)} (base ${pc(c.m[4])}). EV/EBITDA keeps the workbook convention of deducting FY28E net debt.</p>`;
+  $('#lab-strip',root).innerHTML=`<span><b>${sp(m.gap)}</b> DCF vs market cap</span><span><b>${fmt(m.dcf)}</b> DCF</span><span><b>${fmt(c.mcap)}</b> market</span>`;
+  const dW=[-.01,0,.01],dG=[-.005,0,.005];
+  let h=`<div class="hd"></div>${['WACC \u22121 pp','Base WACC','WACC +1 pp'].map(x=>`<div class="hd">${x}</div>`).join('')}`;
+  dG.forEach(dg=>{h+=`<div class="hd">g ${pc(o.tg+dg,2)}</div>`;dW.forEach(dw=>{const r=runModel(c,{...o,wacc:o.wacc+dw,tg:o.tg+dg});h+=`<div class="${r.dcf>c.mcap?'hi ':''}${dw===0&&dg===0?'base':''}">${fmt(r.dcf)}</div>`})});
+  $('#heat',root).innerHTML=h;
+},
+solve(kind,root){
+  const c=D[S.co],o=labOpts(),was=runModel(c,o).gap,f=x=>runModel(c,{...o,[kind]:x}).gap;
+  let lo=kind==='dm'?-.3:-.25,hi=kind==='dm'?.6:.5;
+  const out=$('#solve-out',root);
+  if(f(hi)<0){out.textContent='No value in the tested range closes the gap with the other assumptions held.';return}
+  if(f(lo)>0){out.textContent='The DCF is above market cap even at the lowest tested value.';return}
+  for(let i=0;i<50;i++){const mid=(lo+hi)/2;f(mid)<0?lo=mid:hi=mid}
+  const x=(lo+hi)/2,pp=Math.round(x*1000)/10,lim=kind==='dm'?[-10,30]:[-8,15];
+  S.lab[kind]=Math.max(lim[0],Math.min(lim[1],pp));this.syncCtl(root);this.paint(root);
+  const hiM=Math.max(...COS.map(q=>D[q].m[4])),lead=was>=0?'The DCF falls to market cap if':'To close the gap,';
+  out.innerHTML=kind==='dm'
+    ?`${lead} ${LBL[S.co]}\u2019s FY31E EBITDA margin ${was>=0?'slips to':'would need to reach'} <b>${pc(c.m[4]+x)}</b> (base ${pc(c.m[4])}, a change of ${pp>=0?'+':MIN}${Math.abs(pp).toFixed(1)} pp in every year). The highest FY31E margin modelled across the ten is ${pc(hiM)}.`
+    :`${lead} ${LBL[S.co]} ${was>=0?'grows':'would need to grow'} revenue about <b>${Math.abs(pp).toFixed(1)} pp a year ${pp>=0?'faster':'slower'}</b> than base in every forecast year. That moves FY26\u201331E revenue CAGR to ${pc(Math.pow(runModel(c,{...o,dg:x}).rev[4]/c.rev[3],1/5)-1)} from ${pc(cagr(c))}.`;
+},
+enter(root){if(this.lastCo!==S.co){labReset();this.lastCo=S.co}this.build(root)},
+on(act,k,root){
+  if(act==='labco'){S.co=k;labReset();this.lastCo=k;this.build(root)}
+  if(act==='labreset'){labReset();this.build(root)}
+  if(act==='bridge'){S.legacy=k==='legacy';this.build(root)}
+  if(act==='solvem')this.solve('dm',root);
+  if(act==='solveg')this.solve('dg',root);
+}});
+
+/* ===== 12 company deep dive ===== */
+SLIDES.push({id:'company',title:'Company deep dive',
+html:()=>'',
+init(root){this.build(root)},
+build(root){
+  const k=S.co,c=D[k],r=rangeOf(c),v=lensVals(c),yrs=['FY23A','FY24A','FY25A','FY26A','FY27E','FY28E','FY29E','FY30E','FY31E'];
+  const nd=c.ebitda[3]&&c.nd[3]!=null?c.nd[3]/c.ebitda[3]:null;
+  const items=[['Market cap',c.mcap,'mk'],...LENS.map(([q])=>[LENSS[q],v[q],q])],mxv=Math.max(...items.map(x=>x[1]));
+  root.innerHTML=`<div class="wrap">
+<div class="head"><h2 class="d-lg">${FULLNAME[k]}</h2><p class="lead">${T[k].t}</p></div>
+${coChips('co')}
+<div class="grid g4" style="margin:16px 0">
+ <div class="stat"><span class="v num">${cr(c.rev[3])}</span><span class="l">FY26A revenue</span></div>
+ <div class="stat"><span class="v num">${cr(c.rev[8])}</span><span class="l">FY31E revenue (${pc(cagr(c))} CAGR)</span></div>
+ <div class="stat"><span class="v num">${pc(c.ebitda[3]/c.rev[3])} to ${pc(c.m[4])}</span><span class="l">EBITDA margin, FY26A to FY31E</span></div>
+ <div class="stat"><span class="v num">${pc(c.roce[8])}</span><span class="l">FY31E ROCE</span></div>
+</div>
+<div class="two-col wide-l">
+ <div class="stack">
+  <div class="feature"><div class="row" style="justify-content:space-between;margin-bottom:8px"><span class="h-md">Revenue and EBITDA (\u20B9 cr)</span><span class="legend"><span><i style="background:var(--mute)"></i>Actual</span><span><i style="background:var(--stone)"></i>Estimate</span></span></div><div id="co-ch"></div></div>
+  <div class="feature"><span class="h-md">Net debt / (cash), \u20B9 cr</span><div id="co-nd" style="margin-top:8px"></div></div>
+  <div class="feature"><h3 class="h-md" style="margin-bottom:8px">What the model is testing</h3><div class="stack">${T[k].q.map(q=>`<p class="p">${q}</p>`).join('')}</div></div>
+ </div>
+ <div class="stack">
+  <div class="feature soft"><div class="row" style="justify-content:space-between"><span class="h-md">Valuation range</span>${posPill(r.pos)}</div>
+   <div class="grid g2" style="margin-top:12px"><div><p class="cap">Market cap</p><p class="h-lg num">${cr(c.mcap)}</p></div><div><p class="cap">Central reference</p><p class="h-lg num">${cr(r.ce)}</p></div>
+   <div><p class="cap">Low to high</p><p class="h-lg num" style="font-size:18px">${fmt(r.lo)} to ${fmt(r.hi)}</p></div><div><p class="cap">Terminal share of DCF EV</p><p class="h-lg num">${pc(c.ta.tp)}</p></div>
+   <div><p class="cap">Market-implied FY31 margin</p><p class="h-lg num">${pc(c.ro.mm)}</p></div><div><p class="cap">Base FY31 margin</p><p class="h-lg num">${pc(c.m[4])}</p></div></div>
+   <div class="bars onsoft" style="display:flex;flex-direction:column;margin-top:16px">${items.map(([l,val,q])=>`<div class="bar-row" style="grid-template-columns:132px 1fr 64px;padding:0"><span class="n" style="font-size:13px">${l}</span><div class="bar-track"><div class="bar-fill ${q==='mk'?'':'lite'}" style="width:${val/mxv*100}%"></div></div><span class="v num" style="font-size:13px">${fmt(val)}</span></div>`).join('')}</div>
+   <p class="p" style="margin-top:12px">${interp(k)}</p>
+   <p class="sm" style="margin-top:8px"><b class="strong">Operating sanity check.</b> ${sanity(k)}</p>
+   <div class="row" style="margin-top:12px"><button class="btn btn-secondary" data-act="tolab">Stress-test in the lab</button><button class="btn btn-ghost" data-act="torev">What must be true?</button></div></div>
+  <div class="note"><b>What would change the view.</b> A material change in commissioning timelines, occupancy ramp, ARPOB and case mix, capex intensity, cash conversion or required return should be reflected first in the operating model and only then in valuation.</div>
+  ${k==='Kovai'?`<div class="note"><b>Model note.</b> The ROCE proxy falls from ${pc(c.roce[4],0)} in FY27E to ${pc(c.roce[8],0)} by FY31E because the modelled equity base starts very small and builds with retained profit. Read the level with care.</div>`:''}
+  ${k==='HCG'?`<div class="note"><b>Data note.</b> FY26 EBITDA margin is 7.3% on a reported basis. The report flags that a clean bridge to adjusted EBITDA is still needed.</div>`:''}
+ </div></div></div>`;
+  const W=Math.max(300,Math.min(720,($('#co-ch',root).clientWidth||600))),H=210,pl=8,pr=8,pt=24,pb=26,iw=W-pl-pr,ih=H-pt-pb,mx=Math.max(...c.rev.filter(Boolean));
+  let s=`<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Revenue and EBITDA FY23 to FY31 estimate">`;
+  c.rev.forEach((val,i)=>{
+    const x=pl+iw*(i+.5)/9,bw=iw/9*.66,e=c.ebitda[i],h=val?ih*val/mx:0,hist=i<4;
+    if(val)s+=`<rect x="${x-bw/2}" y="${pt+ih-h}" width="${bw}" height="${h}" rx="6" fill="${hist?'var(--mute)':'var(--stone)'}" opacity="${hist?.55:1}"/>`;
+    if(val&&e)s+=`<rect x="${x-bw*.32}" y="${pt+ih-ih*e/mx}" width="${bw*.64}" height="${ih*e/mx}" rx="4" fill="${hist?'var(--ink)':'var(--mute)'}"/>`;
+    if(val)s+=`<text x="${x}" y="${pt+ih-h-5}" text-anchor="middle" font-size="10" font-weight="600" fill="var(--body)">${W<420?'':fmt(val)}</text>`;
+    s+=`<text x="${x}" y="${H-8}" text-anchor="middle" font-size="${W<420?9:11}" fill="var(--mute)" font-weight="500">${W<420?yrs[i].slice(2):yrs[i]}</text>`;
+  });
+  s+='</svg><p class="cap">Lighter bar is revenue, darker bar inside is EBITDA. EBITDA is blank where the dataset has no figure.</p>';
+  $('#co-ch',root).innerHTML=s;
+  const ndv=c.nd,vals=ndv.filter(q=>q!=null),mxn=Math.max(...vals.map(Math.abs),1),H2=120,mid=H2/2;
+  let n=`<svg viewBox="0 0 ${W} ${H2+22}" width="100%" role="img" aria-label="Net debt path">`;
+  n+=`<line x1="${pl}" x2="${W-pr}" y1="${mid}" y2="${mid}" stroke="var(--ash)"/>`;
+  ndv.forEach((q,i)=>{if(q==null)return;const x=pl+iw*(i+.5)/9,bw=iw/9*.5,h=Math.abs(q)/mxn*(mid-14);n+=`<rect x="${x-bw/2}" y="${q>=0?mid-h:mid}" width="${bw}" height="${h}" rx="4" fill="${q>=0?'var(--err)':'var(--succ)'}" opacity="${i<4?1:.55}"/><text x="${x}" y="${q>=0?mid-h-4:mid+h+12}" text-anchor="middle" font-size="10" font-weight="600" fill="var(--body)">${W<420?'':fmt(q)}</text><text x="${x}" y="${H2+16}" text-anchor="middle" font-size="11" fill="var(--mute)">${yrs[i].slice(2)}</text>`});
+  n+='</svg><p class="cap">Above the line is net debt, below is net cash. Forecast years are lighter.</p>';
+  $('#co-nd',root).innerHTML=n;
+},
+enter(root){this.build(root)},
+on(act,k,root){
+  if(act==='co'){S.co=k;this.build(root)}
+  if(act==='tolab'){labReset();SLIDES[slideIdx('lab')].lastCo=S.co;goId('lab')}
+  if(act==='torev'){goId('reverse')}
+}});
+
+/* ===== 13 catalysts and risks ===== */
+const CAT=[
+ ['Occupancy','Faster utilisation raises contribution margin and improves cash conversion.','Slow ramp leaves fixed costs under-absorbed and delays returns.'],
+ ['ARPOB and case mix','Higher acuity and richer specialty mix improve revenue quality.','Payer or regulatory pressure, or weak mix, limits pricing.'],
+ ['Capacity execution','On-time projects expand the addressable market.','Delays, cost overruns and staffing constraints reduce returns.'],
+ ['M&A','Cluster density and specialty capabilities can accelerate scale.','Integration, goodwill and debt can dilute ROIC.'],
+ ['Capital structure','Self-funded expansion increases equity capture.','Debt-heavy expansion magnifies execution risk.'],
+ ['Valuation','Lower required returns support long-duration assets.','Higher WACC compresses present value sharply.']
+];
+SLIDES.push({id:'risks',title:'Catalysts and risks',
+html:()=>`<div class="wrap">
+<div class="head"><h2 class="d-lg">The same pipeline that lifts growth can depress returns.</h2>
+<p class="lead">The central sector risk is not weak demand alone. It is a mismatch between the pace of capital deployment and the pace at which demand is absorbed into new capacity. Hospitals that open faster than clinicians and patient volumes ramp can see lower near-term EBITDA, cash flow and ROIC.</p></div>
+<div class="seg" id="catseg" role="group" style="margin-bottom:16px"><button aria-pressed="true" data-act="cat" data-k="both">Both</button><button aria-pressed="false" data-act="cat" data-k="pos">Potential positive</button><button aria-pressed="false" data-act="cat" data-k="neg">Potential negative</button></div>
+<div class="grid g2" id="cats">${CAT.map(([a,p,n])=>`<div class="card white" style="display:flex;flex-direction:column;gap:10px;padding:20px"><span class="h-md">${a}</span><p class="p cp" style="display:flex;gap:8px"><span class="pill pos" style="flex:none">Positive</span><span>${p}</span></p><p class="p cn" style="display:flex;gap:8px"><span class="pill neg" style="flex:none">Negative</span><span>${n}</span></p></div>`).join('')}</div>
+<div class="feature soft" style="margin-top:16px"><p class="h-md">What would change the view</p><p class="p" style="margin-top:8px">A material change in commissioning timelines, occupancy ramp, ARPOB and case mix, capex intensity, cash conversion or required return should be reflected first in the operating model and only then in valuation. A single soft quarter during commissioning says less than whether new hospitals are following the expected ramp.</p></div>
+</div>`,
+init(){},
+on(act,k,root){if(act==='cat'){$$('#catseg button',root).forEach(b=>b.setAttribute('aria-pressed',b.dataset.k===k));$$('.cp',root).forEach(e=>e.style.display=k==='neg'?'none':'flex');$$('.cn',root).forEach(e=>e.style.display=k==='pos'?'none':'flex')}}});
+
+/* ===== 14 methodology ===== */
+SLIDES.push({id:'method',title:'Revised methodology',
+html:()=>`<div class="wrap">
+<div class="head"><h2 class="d-lg">The operating forecast comes first. Valuation never gets reverse-engineered.</h2>
+<p class="lead">The preferred hospital build is bottom-up: beds \u00D7 occupancy \u00D7 365 gives occupied bed days. Divide by ALOS for discharges. Multiply by ARPOB for inpatient revenue, then add outpatient and other income. Try it.</p></div>
+<div class="two-col">
+ <div class="feature"><h3 class="h-md" style="margin-bottom:8px">The bottom-up build</h3>
+  ${ctl('m-beds','Operational beds',100,1500,50,800,'')}${ctl('m-occ','Occupancy',40,90,1,68,'%')}${ctl('m-arpob','ARPOB (\u20B9 000 per bed-day)',30,100,1,55,'')}${ctl('m-alos','ALOS (days)',2.5,6,0.1,3.6,'',1)}${ctl('m-op','Outpatient and other, % of inpatient',0,40,1,20,'%')}
+  <button class="btn btn-secondary" style="margin-top:12px" data-act="walk">Walk through the steps</button></div>
+ <div class="flow" id="flow"></div>
+</div>
+<h3 class="h-lg" style="margin:32px 0 12px">Eight pieces of the revised valuation</h3>
+<div class="grid g2">${[['Corrected DCF','Enterprise value converts to equity using FY26 opening net debt or cash.'],['Terminal audit','Terminal share of EV, terminal reinvestment and implied terminal ROIC are visible.'],['Reverse operating valuation','Solves for the EBITDA margin and terminal economics consistent with current EV.'],['Mature/ramping SOTP','Separates current mature EBITDA, ramping assets and probability-weighted future growth.'],['Scenario tree','Uses business-driver changes rather than mechanical valuation haircuts.'],['Monte Carlo','Provides P10, P50 and P90 distributions instead of one precise number.'],['Bed economics','EV per bed, revenue per bed, occupancy and replacement cost are secondary diagnostics.'],['Primary output','Low, central and high model references, plus the market expectation gap.']].map(([a,b])=>`<div class="card white"><p class="h-md">${a}</p><p class="p" style="margin-top:6px">${b}</p></div>`).join('')}</div>
+<h3 class="h-lg" style="margin:32px 0 12px">What the revision did to the headline gap</h3>
+<div class="tablewrap noswipe"><table><thead><tr><th>Company</th><th>Legacy weighted gap</th><th>Corrected DCF gap</th><th>Central reference vs market cap</th></tr></thead><tbody>
+${COS.map(k=>{const c=D[k];return `<tr><td>${FULLNAME[k]}</td><td>${sp(c.val.gap)}</td><td>${sp(c.ta.dcf/c.mcap-1)}</td><td>${sp(c.vr.ce/c.mcap-1)}</td></tr>`}).join('')}</tbody></table></div>
+<p class="cap" style="margin-top:8px">Legacy weighted gap was the 50/25/25 blend of DCF, EV/EBITDA and P/E on the old bridge. The central reference is the median of six lenses.</p>
+<div class="grid g2" style="margin-top:32px">
+ <div class="feature"><h3 class="h-lg">Important limitations</h3><div class="stack" style="margin-top:8px">${['The model is an analytical scenario, not management guidance or an investment recommendation.','Bed definitions, occupancy and ARPOB are not standardized perfectly across companies.','Mature/ramping SOTP assumptions are analyst estimates, because companies rarely disclose complete asset-stage splits.','Monte Carlo distributions are only as good as the chosen input distributions and do not eliminate model risk.','Replacement cost does not capture brand, doctor networks, specialty capabilities or local market power.','Current market capitalisations change daily and should be refreshed before using the expectation map.'].map(x=>`<p class="p">${x}</p>`).join('')}</div></div>
+ <div class="stack">
+  <div class="note"><b>Workbook checks:</b> ${CHECKS[1]} of ${CHECKS[0]} pass. The other ${CHECKS[0]-CHECKS[1]} are intentional warnings that terminal value exceeds 75% of EV for every company.</div>
+  <div class="note"><b>One convention to know.</b> The relative EV/EBITDA lens still deducts FY28E net debt, as in the original model. Using FY26 net debt instead would move those values by between ${MIN}6% and +4% and would not change any company\u2019s position against the range.</div>
+ </div></div></div>`,
+init(root){
+  const paint=walk=>{
+    const v=id=>+$('#'+id,root).value,beds=v('m-beds'),occ=v('m-occ')/100,ar=v('m-arpob'),alos=v('m-alos'),op=v('m-op')/100;
+    const obd=beds*occ*365,disc=obd/alos,ip=obd*ar/1e4,tot=ip*(1+op);
+    const steps=[['Operational beds',fmt(beds)],['\u00D7 occupancy \u00D7 365 = occupied bed days',fmt(obd/1e5,2)+' lakh'],['\u00F7 ALOS = inpatient discharges',fmt(disc/1000,1)+'k'],['\u00D7 ARPOB = inpatient revenue','\u20B9'+fmt(ip)+' cr'],['+ outpatient and other = total revenue','\u20B9'+fmt(tot)+' cr']];
+    $('#flow',root).innerHTML=steps.map(([a,b],i)=>`<div class="flow-step ${walk!=null&&i<=walk?'on':''}"><b>${a}</b><span class="num" style="font-size:16px;font-weight:700;color:var(--ink)">${b}</span></div>`).join('');
+  };
+  this.paint=paint;bindRanges(root,()=>paint());paint();
+},
+on(act,k,root){if(act==='walk'){let i=-1;clearInterval(this.t);this.t=setInterval(()=>{i++;this.paint(i);if(i>=4)clearInterval(this.t)},RM?50:600)}}});
+
+/* ===== 15 sources ===== */
+SLIDES.push({id:'sources',title:'Sources and disclaimer',
+html:()=>{
+  const seen=new Set(),rows=[];
+  META.src.forEach(r=>{const key=r[4]+'|'+r[2];if(r[3]&&r[3].startsWith('FinancialFilings')){if(seen.has('ff'))return;seen.add('ff');rows.push(['Ten core companies','FY23\u2013FY26','Historical financials',r[3],r[4]]);return}if(seen.has(key))return;seen.add(key);rows.push(r)});
+  return `<div class="wrap" style="padding-bottom:0">
+<div class="head"><h2 class="d-lg">Sources and reference material.</h2><p class="lead">Each row says what the source was used for. The workbook\u2019s source log also records quality notes for every line.</p></div>
+<div class="grid g2">${rows.map(r=>`<a class="card" href="${r[4]}" target="_blank" rel="noopener noreferrer" style="text-decoration:none;display:flex;flex-direction:column;gap:6px"><span class="h-md">${r[0]}</span><span class="sm">${r[1]}. ${r[2]}.</span><span class="cap">${r[3]}</span></a>`).join('')}</div>
+<p class="sm" style="margin:16px 0 32px">The workbook remains the detailed source of formulas, assumptions, sensitivity tables, Monte Carlo outputs and model checks. This deck is the interactive companion to the revised report and workbook.</p>
+</div>
+<div style="background:var(--dark);color:var(--on-dark);padding:48px 16px"><div style="max-width:1280px;margin:0 auto;padding:0 8px" class="stack-lg">
+ <div class="brand" style="gap:12px">${LOGO(40)}<b style="font-size:22px;color:#fff">Mindful Finance</b></div>
+ <p style="font-family:var(--font-d);font-weight:700;font-size:28px;letter-spacing:-1.2px;line-height:1.2;max-width:24ch;color:#fff">Understand the assumptions before you chase the price.</p>
+ <p style="font-size:14px;color:#c8c8c1;max-width:70ch"><b style="color:#fff">Research disclaimer.</b> This document is for educational and analytical purposes. It is not investment advice, a solicitation, or a recommendation to buy, sell or hold any security. Forecasts and valuations are estimates based on stated assumptions and can be materially wrong. Verify current filings, market prices, tax implications and your own risk constraints before making financial decisions.</p>
+ <p style="font-size:14px;color:#c8c8c1">@MindfulSundar \u00B7 WhatsApp \u00B7 YouTube \u00B7 LinkedIn</p>
+ <div class="row"><button class="btn btn-secondary" data-go="0">Back to the cover</button></div>
+</div></div>`},
+init(){}});
+
+/* ===== shell ===== */
+function LOGO(s){return `<svg width="${s}" height="${s}" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="12" fill="#12294d"/><path d="M10 28V13l10 11 10-11v15" fill="none" stroke="#e3a72f" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="10" r="2.4" fill="#e3a72f"/></svg>`}
+const track=$('#track');
+function goTo(i){
+  i=Math.max(0,Math.min(SLIDES.length-1,i));
+  const prev=SLIDES[S.i];if(prev&&prev.leave&&S.i!==i)prev.leave();
+  S.i=i;S.seen.add(i);
+  track.style.transform=`translateX(${-i*100}%)`;
+  $$('.slide',track).forEach((s,j)=>{s.inert=j!==i;s.setAttribute('aria-hidden',j!==i)});
+  const sl=SLIDES[i],root=$('#slide-'+sl.id);
+  root.scrollTop=0;
+  $('#nav-title').textContent=sl.title;$('#counter').textContent=`${i+1} / ${SLIDES.length}`;
+  $('#prev').disabled=i===0;$('#next').disabled=i===SLIDES.length-1;$('#next2').disabled=i===SLIDES.length-1;
+  $$('.dot').forEach((d,j)=>{d.setAttribute('aria-current',j===i);d.classList.toggle('seen',S.seen.has(j))});
+  if(sl.enter)sl.enter(root);
+  countUps(root);fillBars(root);
+  try{history.replaceState(null,'','#'+(i+1))}catch(e){}
+}
+function buildShell(){
+  track.innerHTML=SLIDES.map(s=>`<section class="slide" id="slide-${s.id}" aria-label="${s.title}">${s.html()}</section>`).join('');
+  SLIDES.forEach(s=>{const r=$('#slide-'+s.id);s.root=r;if(s.init)s.init(r)});
+  $('#dots').innerHTML=SLIDES.map((s,i)=>`<button class="dot" aria-label="Go to slide ${i+1}: ${s.title}" data-go="${i}"><i></i></button>`).join('');
+  $('#logo').innerHTML=LOGO(32);
+}
+function openIndex(){
+  $('#index-list').innerHTML=SLIDES.map((s,i)=>`<button class="index-item ${i===S.i?'cur':''}" data-go="${i}" data-close="1"><span>${i+1}</span><b>${s.title}</b></button>`).join('');
+  $('#scrim').classList.add('open');$('#index-list button.cur').focus();
+}
+function closeIndex(){$('#scrim').classList.remove('open')}
+document.addEventListener('click',e=>{
+  const t=e.target.closest('[data-go],[data-goid],[data-act],#prev,#next,#next2,#counter,#scrim,#close-index');
+  if(!t)return;
+  if(t.id==='scrim'){if(e.target===t)closeIndex();return}
+  if(t.id==='close-index'){closeIndex();return}
+  if(t.id==='prev'){goTo(S.i-1);return}
+  if(t.id==='next'||t.id==='next2'){goTo(S.i+1);return}
+  if(t.id==='counter'){openIndex();return}
+  if(t.dataset.goid){goId(t.dataset.goid);return}
+  if(t.dataset.go!=null){goTo(+t.dataset.go);if(t.dataset.close)closeIndex();return}
+  const act=t.dataset.act;
+  if(act==='index'){openIndex();return}
+  if(act==='replay'){SLIDES[0].start();return}
+  const sl=SLIDES[S.i];
+  if(sl.on)sl.on(act,t.dataset.k,$('#slide-'+sl.id),t);
+});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){closeIndex();return}
+  if(/INPUT|SELECT|TEXTAREA/.test(e.target.tagName))return;
+  if(e.key==='ArrowRight'||e.key==='PageDown'){goTo(S.i+1)}
+  if(e.key==='ArrowLeft'||e.key==='PageUp'){goTo(S.i-1)}
+});
+let tx=0,ty=0,tt=null;
+$('#stage').addEventListener('touchstart',e=>{tt=e.target;tx=e.touches[0].clientX;ty=e.touches[0].clientY},{passive:true});
+$('#stage').addEventListener('touchend',e=>{
+  if(!tt||tt.closest('.noswipe,input,.chips'))return;
+  const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;
+  if(Math.abs(dx)>70&&Math.abs(dx)>Math.abs(dy)*1.6)goTo(S.i+(dx<0?1:-1));
+},{passive:true});
+buildShell();
+goTo(Math.max(0,Math.min(SLIDES.length-1,(parseInt(location.hash.slice(1))||1)-1)));
+
+</script>
+</body>
+</html>
